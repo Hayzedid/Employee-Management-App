@@ -1,0 +1,184 @@
+EMPLOYEE MANAGEMENT SYSTEM - ENTITY RELATIONSHIP DIAGRAM
+================================================================
+
+CORE ENTITIES AND RELATIONSHIPS:
+
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│     USERS       │    │   EMPLOYEES     │    │  DEPARTMENTS    │
+├─────────────────┤    ├─────────────────┤    ├─────────────────┤
+│ user_id (PK)    │◄───┤ user_id (FK)    │    │ department_id   │
+│ username        │    │ employee_id (PK)│    │ (PK)            │
+│ email           │    │ employee_number │    │ department_name │
+│ password_hash   │    │ first_name      │    │ department_code │
+│ role            │    │ last_name       │    │ parent_dept_id  │
+│ is_active       │    │ hire_date       │    │ manager_id (FK) │
+│ last_login      │    │ employment_status│    │ budget          │
+│ created_at      │    │ department_id   │◄───┤ location        │
+│ updated_at      │    │ (FK)            │    │ is_active       │
+└─────────────────┘    │ position_id (FK)│    └─────────────────┘
+                       │ manager_id (FK) │
+                       │ salary          │
+                       │ created_at      │
+                       │ updated_at      │
+                       └─────────────────┘
+                                │
+                                │
+                                ▼
+                       ┌─────────────────┐
+                       │   POSITIONS     │
+                       ├─────────────────┤
+                       │ position_id (PK)│
+                       │ position_title  │
+                       │ position_code   │
+                       │ department_id   │◄───┘
+                       │ (FK)            │
+                       │ job_description │
+                       │ min_salary      │
+                       │ max_salary      │
+                       │ is_active       │
+                       └─────────────────┘
+
+ATTENDANCE AND TIME MANAGEMENT:
+
+┌─────────────────┐    ┌─────────────────┐
+│ ATTENDANCE_     │    │ TIME_OFF_       │
+│ RECORDS         │    │ REQUESTS        │
+├─────────────────┤    ├─────────────────┤
+│ attendance_id   │    │ request_id (PK) │
+│ (PK)            │    │ employee_id (FK)│◄───┐
+│ employee_id (FK)│◄───┤ request_type    │    │
+│ attendance_date │    │ start_date      │    │
+│ check_in_time   │    │ end_date        │    │
+│ check_out_time  │    │ total_days      │    │
+│ total_hours     │    │ reason          │    │
+│ overtime_hours  │    │ status          │    │
+│ status          │    │ requested_by    │    │
+│ notes           │    │ (FK)            │    │
+│ created_at      │    │ approved_by (FK)│    │
+│ updated_at      │    │ approval_date   │    │
+└─────────────────┘    │ rejection_reason│    │
+                       │ created_at      │    │
+                       │ updated_at      │    │
+                       └─────────────────┘    │
+                                              │
+                                              │
+┌─────────────────┐    ┌─────────────────┐    │
+│ PERFORMANCE_    │    │ SALARY_         │    │
+│ REVIEWS         │    │ HISTORY         │    │
+├─────────────────┤    ├─────────────────┤    │
+│ review_id (PK)  │    │ salary_id (PK)  │    │
+│ employee_id (FK)│◄───┤ employee_id (FK)│◄───┘
+│ reviewer_id (FK)│    │ salary_amount   │
+│ review_period_  │    │ effective_date  │
+│ start           │    │ end_date        │
+│ review_period_  │    │ salary_type     │
+│ end             │    │ reason          │
+│ overall_rating  │    │ approved_by (FK)│
+│ goals_achieved  │    │ created_at      │
+│ goals_total     │    └─────────────────┘
+│ strengths       │
+│ areas_for_      │
+│ improvement     │
+│ development_    │
+│ plan            │
+│ next_review_    │
+│ date            │
+│ status          │
+│ created_at      │
+│ updated_at      │
+└─────────────────┘
+
+SUPPORTING ENTITIES:
+
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│ EMERGENCY_      │    │ DOCUMENTS       │    │ NOTIFICATIONS   │
+│ CONTACTS        │    │                 │    │                 │
+├─────────────────┤    ├─────────────────┤    ├─────────────────┤
+│ contact_id (PK) │    │ document_id (PK)│    │ notification_id │
+│ employee_id (FK)│◄───┤ employee_id (FK)│◄───┤ (PK)            │
+│ contact_name    │    │ document_name   │    │ user_id (FK)    │
+│ relationship    │    │ document_type   │    │ title           │
+│ phone           │    │ file_path       │    │ message         │
+│ email           │    │ file_size       │    │ notification_   │
+│ address         │    │ mime_type       │    │ type            │
+│ is_primary      │    │ uploaded_by (FK)│    │ is_read         │
+│ created_at      │    │ is_confidential │    │ action_url      │
+│ updated_at      │    │ created_at      │    │ created_at      │
+└─────────────────┘    │ updated_at      │    └─────────────────┘
+                       └─────────────────┘
+
+AUDIT AND SECURITY:
+
+┌─────────────────┐
+│ AUDIT_LOGS      │
+├─────────────────┤
+│ log_id (PK)     │
+│ user_id (FK)    │
+│ action          │
+│ table_name      │
+│ record_id       │
+│ old_values      │
+│ new_values      │
+│ ip_address      │
+│ user_agent      │
+│ created_at      │
+└─────────────────┘
+
+RELATIONSHIP SUMMARY:
+====================
+
+1. USERS (1) ──────── (1) EMPLOYEES
+   - One user account per employee
+   - Authentication and authorization
+
+2. EMPLOYEES (N) ──── (1) DEPARTMENTS
+   - Many employees belong to one department
+   - Department assignment
+
+3. EMPLOYEES (N) ──── (1) POSITIONS
+   - Many employees can have same position
+   - Job role definition
+
+4. EMPLOYEES (N) ──── (1) EMPLOYEES (Manager)
+   - Self-referencing relationship
+   - Manager-subordinate hierarchy
+
+5. EMPLOYEES (1) ──── (N) ATTENDANCE_RECORDS
+   - One employee has many attendance records
+   - Daily attendance tracking
+
+6. EMPLOYEES (1) ──── (N) TIME_OFF_REQUESTS
+   - One employee can make many requests
+   - Leave management
+
+7. EMPLOYEES (1) ──── (N) PERFORMANCE_REVIEWS
+   - One employee has many reviews
+   - Performance tracking
+
+8. EMPLOYEES (1) ──── (N) SALARY_HISTORY
+   - One employee has salary history
+   - Compensation tracking
+
+9. EMPLOYEES (1) ──── (N) EMERGENCY_CONTACTS
+   - One employee has multiple contacts
+   - Emergency information
+
+10. EMPLOYEES (1) ──── (N) DOCUMENTS
+    - One employee has many documents
+    - File management
+
+11. USERS (1) ──────── (N) NOTIFICATIONS
+    - One user receives many notifications
+    - System messaging
+
+12. USERS (1) ──────── (N) AUDIT_LOGS
+    - One user generates many log entries
+    - Activity tracking
+
+CARDINALITY NOTATION:
+=====================
+- (1) = One
+- (N) = Many
+- (FK) = Foreign Key
+- (PK) = Primary Key
+- ◄─── = Relationship direction
