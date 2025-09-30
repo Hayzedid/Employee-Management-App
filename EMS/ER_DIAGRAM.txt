@@ -1,0 +1,137 @@
+EMPLOYEE MANAGEMENT SYSTEM - ENTITY RELATIONSHIP DIAGRAM (ER DIAGRAM)
+=====================================================================================================
+
+LEGEND: [ENTITY] = Table | {attr} = Primary Key | attr = Attribute | attr* = Foreign Key
+        ||= 1:1 | |<= 1:M (One) | >|= 1:M (Many) | ><= M:M
+
+=====================================================================================================
+                                    HORIZONTAL ER DIAGRAM
+=====================================================================================================
+
+┌─────────────────┐    1:1     ┌─────────────────────────────────────────────────────────────────────┐
+│ [USERS]         │ ════════⟹ │ [EMPLOYEES]                                                         │
+│ {user_id}       │            │ {employee_id}, user_id*, employee_number, first_name, last_name,   │
+│ username        │            │ date_of_birth, gender, personal_email, phone, address,             │
+│ email           │            │ department_id*, position_id*, manager_id*, salary, hire_date,       │
+│ password_hash   │            │ employment_status, emergency_contact_name, emergency_contact_phone  │
+│ role, is_active │            └─────────────────────────────────────────────────────────────────────┘
+└─────────────────┘                                    ║                   ║                   ║
+                                                       ║ 1:M              ║ 1:M              ║ 1:M
+                                                       ▼                   ▼                   ▼
+┌─────────────────────────┐    ┌─────────────────────────┐    ┌────────────────────────────────────┐
+│ [DEPARTMENTS]           │    │ [POSITIONS]             │    │ [ATTENDANCE_RECORDS]               │
+│ {department_id}         │    │ {position_id}           │    │ {attendance_id}, employee_id*,     │
+│ department_name         │    │ position_title          │    │ attendance_date, check_in_time,    │
+│ department_code         │    │ position_code           │    │ check_out_time, total_hours,       │
+│ description             │    │ department_id*          │    │ overtime_hours, status, notes      │
+│ parent_department_id    │    │ job_description         │    └────────────────────────────────────┘
+│ manager_id*, budget     │    │ min_salary, max_salary  │
+│ location, is_active     │    │ is_active               │
+└─────────────────────────┘    └─────────────────────────┘
+
+                                                       ║ 1:M              ║ 1:M              ║ 1:M
+                                                       ▼                   ▼                   ▼
+┌─────────────────────────────────┐    ┌─────────────────────────────────┐    ┌─────────────────────────────────┐
+│ [TIME_OFF_REQUESTS]             │    │ [PERFORMANCE_REVIEWS]           │    │ [SALARY_HISTORY]                │
+│ {request_id}, employee_id*,     │    │ {review_id}, employee_id*,      │    │ {salary_history_id},            │
+│ request_type, start_date,       │    │ reviewer_id*, review_period_    │    │ employee_id*, previous_salary,  │
+│ end_date, total_days, reason,   │    │ start, review_period_end,       │    │ new_salary, change_type,        │
+│ status, approved_by*,           │    │ overall_rating, goals_achieve,  │    │ change_reason, effective_date,  │
+│ approved_date, comments         │    │ strengths, areas_improvement    │    │ approved_by*                    │
+└─────────────────────────────────┘    └─────────────────────────────────┘    └─────────────────────────────────┘
+
+                                                       ║ 1:M              ║ M:M              ║ 1:M
+                                                       ▼                   ▼                   ▼
+┌─────────────────────────────────┐    ┌─────────────────────────────────┐    ┌─────────────────────────────────┐
+│ [TRAINING_RECORDS]              │    │ [EMPLOYEE_BENEFITS]             │    │ [BENEFITS]                      │
+│ {training_id}, employee_id*,    │    │ {employee_benefit_id},          │    │ {benefit_id}, benefit_name,     │
+│ training_name, training_        │    │ employee_id*, benefit_id*,      │    │ benefit_type, description,      │
+│ provider, training_date,        │    │ enrollment_date, coverage_      │    │ provider, cost, is_active       │
+│ completion_date, training_      │    │ start_date, coverage_end_date,  │    └─────────────────────────────────┘
+│ hours, certification_earned,    │    │ employee_contribution,          │
+│ cost, status, notes             │    │ employer_contribution           │
+└─────────────────────────────────┘    └─────────────────────────────────┘
+
+=====================================================================================================
+                                RELATIONSHIPS SUMMARY
+=====================================================================================================
+
+1:1 RELATIONSHIPS:
+• USERS ←→ EMPLOYEES (Each user has one employee record, each employee has one user account)
+
+1:M RELATIONSHIPS FROM EMPLOYEES:
+• EMPLOYEES ←→ ATTENDANCE_RECORDS (One employee has many attendance records)
+• EMPLOYEES ←→ TIME_OFF_REQUESTS (One employee makes many time-off requests)  
+• EMPLOYEES ←→ PERFORMANCE_REVIEWS (One employee receives many performance reviews)
+• EMPLOYEES ←→ SALARY_HISTORY (One employee has many salary change records)
+• EMPLOYEES ←→ TRAINING_RECORDS (One employee has many training records)
+
+1:M RELATIONSHIPS TO EMPLOYEES:
+• DEPARTMENTS ←→ EMPLOYEES (One department has many employees)
+• POSITIONS ←→ EMPLOYEES (One position can be held by many employees)
+• EMPLOYEES ←→ EMPLOYEES (Self-reference: One manager manages many employees)
+
+M:M RELATIONSHIPS:
+• EMPLOYEES ←→ BENEFITS (Through EMPLOYEE_BENEFITS junction table)
+
+HIERARCHICAL RELATIONSHIPS:
+• DEPARTMENTS ←→ DEPARTMENTS (Self-reference: Parent-child department structure)
+
+=====================================================================================================
+                                    ENUM TYPES
+=====================================================================================================
+
+user_role: HR_ADMIN, MANAGER, EMPLOYEE
+gender_type: MALE, FEMALE, OTHER  
+employment_status_type: ACTIVE, INACTIVE, TERMINATED, ON_LEAVE
+attendance_status_type: PRESENT, ABSENT, LATE, HALF_DAY, WORK_FROM_HOME
+timeoff_type: VACATION, SICK_LEAVE, PERSONAL, MATERNITY, PATERNITY, BEREAVEMENT, OTHER
+request_status_type: PENDING, APPROVED, REJECTED, CANCELLED
+
+=====================================================================================================
+                                   KEY CONSTRAINTS
+=====================================================================================================
+
+UNIQUE CONSTRAINTS: employee_number, username, email, department_code, position_code
+CHECK CONSTRAINTS: Positive salaries, Valid date ranges, Rating values 1-5, Email format
+FOREIGN KEYS: All relationships enforce referential integrity with appropriate cascade rules
+INDEXES: Primary keys, Foreign keys, Search fields (names, dates), Performance optimization
+
+=====================================================================================================
+                                 BUSINESS RULES & DATA INTEGRITY
+=====================================================================================================
+
+EMPLOYEE MANAGEMENT RULES:
+• Employee numbers must be unique and follow format (e.g., EMP001)
+• Employees cannot be their own manager (self-reference constraint)
+• Active employees must have valid department and position assignments
+• Termination date cannot be before hire date
+
+ATTENDANCE RULES:
+• One attendance record per employee per date (unique constraint)
+• Check-out time must be after check-in time
+• Total hours automatically calculated from check-in/out times
+• Overtime calculated based on standard work hours (8 hours)
+
+LEAVE MANAGEMENT RULES:
+• Leave end date must be after start date
+• Cannot request leave for past dates
+• Manager approval required for all leave requests
+• Leave balance validation (if balance tracking implemented)
+
+PERFORMANCE & SALARY RULES:
+• Review period end must be after start date
+• Overall rating must be between 1 and 5
+• New salary must be different from previous salary
+• Salary changes require manager approval with complete audit trail
+
+SYSTEM INTEGRITY:
+• All foreign key relationships enforced with referential integrity
+• Cascading updates where appropriate, restricted deletes for core entities
+• Check constraints for valid ranges and business logic
+• Audit trails with created_at/updated_at timestamps on all entities
+
+=====================================================================================================
+This horizontal layout allows for easier screenshot capture while maintaining all essential 
+information about the Employee Management System database structure and relationships.
+=====================================================================================================

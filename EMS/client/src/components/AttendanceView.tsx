@@ -169,10 +169,10 @@ const AttendanceView: React.FC = () => {
 
   if (error) {
     return (
-      <div className="error">
+      <div className="error-container">
         <h3>Error Loading Attendance Data</h3>
         <p>{error}</p>
-        <button onClick={fetchAttendanceData} className="btn btn-primary">
+        <button onClick={fetchAttendanceData} className="retry-button">
           Try Again
         </button>
       </div>
@@ -180,16 +180,17 @@ const AttendanceView: React.FC = () => {
   }
 
   return (
-    <div className="attendance-view">
-      <div className="page-header">
-        <div className="header-content">
-          <h1>
-            <Calendar size={28} />
-            Attendance Records
-          </h1>
-          <p>View and monitor employee attendance data</p>
+    <>
+      <div className="attendance-view">
+        <div className="page-header">
+          <div className="header-content">
+            <h1>
+              <Calendar size={28} />
+              Attendance Records
+            </h1>
+            <p>View and monitor employee attendance data</p>
+          </div>
         </div>
-      </div>
 
       {/* Summary Cards */}
       {summary && (
@@ -211,11 +212,11 @@ const AttendanceView: React.FC = () => {
             <div className="stat-label">Late</div>
           </div>
           <div className="stat-card">
-            <div className="stat-value">{summary.avg_hours.toFixed(1)}h</div>
+            <div className="stat-value">{Number(summary?.avg_hours || 0).toFixed(1)}h</div>
             <div className="stat-label">Avg Hours</div>
           </div>
           <div className="stat-card">
-            <div className="stat-value">{summary.total_overtime.toFixed(1)}h</div>
+            <div className="stat-value">{Number(summary?.total_overtime || 0).toFixed(1)}h</div>
             <div className="stat-label">Total Overtime</div>
           </div>
         </div>
@@ -272,18 +273,18 @@ const AttendanceView: React.FC = () => {
       </div>
 
       {/* Attendance Records Table */}
-      <div className="card">
-        <div className="card-header">
-          <h3>Attendance Records ({filteredRecords.length})</h3>
+      <div className="table-card">
+        <div className="table-header">
+          <h3>Attendance Records</h3>
+          <p>Recent attendance data with detailed information</p>
         </div>
-        
-        <div className="table-container">
-          <table>
+        <div className="table-content">
+          <table className="modern-table">
             <thead>
               <tr>
-                <th>Date</th>
                 <th>Employee</th>
                 <th>Department</th>
+                <th>Date</th>
                 <th>Check In</th>
                 <th>Check Out</th>
                 <th>Hours</th>
@@ -303,18 +304,18 @@ const AttendanceView: React.FC = () => {
                 filteredRecords.map((record) => (
                   <tr key={record.attendance_id}>
                     <td>
-                      <div className="attendance-date">
-                        {formatDate(record.attendance_date)}
-                      </div>
-                    </td>
-                    <td>
                       <div className="employee-info">
                         <div className="employee-name">{record.employee_name}</div>
                         <div className="employee-number">#{record.employee_number}</div>
                       </div>
                     </td>
                     <td>
-                      <span className="employee-department">{record.department_name}</span>
+                      <span className="department-name">{record.department_name}</span>
+                    </td>
+                    <td>
+                      <div className="date">
+                        {formatDate(record.attendance_date)}
+                      </div>
                     </td>
                     <td>
                       <span className="attendance-time check-in">
@@ -328,12 +329,12 @@ const AttendanceView: React.FC = () => {
                     </td>
                     <td>
                       <span className="attendance-hours">
-                        {record.total_hours.toFixed(1)}h
+                        {Number(record.total_hours || 0).toFixed(1)}h
                       </span>
                     </td>
                     <td>
                       <span className="overtime-hours">
-                        {record.overtime_hours.toFixed(1)}h
+                        {Number(record.overtime_hours || 0).toFixed(1)}h
                       </span>
                     </td>
                     <td>
@@ -353,8 +354,9 @@ const AttendanceView: React.FC = () => {
             </tbody>
           </table>
         </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

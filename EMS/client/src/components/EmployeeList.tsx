@@ -255,17 +255,8 @@ const EmployeeList: React.FC = () => {
   }
 
   return (
-    <div>
-      <div className="card">
-        <div className="card-header">
-          <h2 className="card-title">Employee Management</h2>
-          <p className="card-subtitle">Comprehensive employee data with complex database relationships</p>
-        </div>
-      </div>
-
-      {/* Search and Actions */}
-      <div className="card">
-        <div className="employee-search-container">
+    <>
+      <div className="employee-search-container">
           <div className="employee-search-wrapper">
             <Search size={20} className="employee-search-icon" />
             <input
@@ -284,7 +275,6 @@ const EmployeeList: React.FC = () => {
             Add Employee
           </button>
         </div>
-      </div>
 
       {/* Employee Table */}
       <div className="card">
@@ -592,9 +582,8 @@ const EmployeeList: React.FC = () => {
         <p>• <strong>Indexed Queries:</strong> Fast search performance with optimized database indexes</p>
         <p>• <strong>Data Validation:</strong> Consistent data types and constraints</p>
       </div>
-    </div>
+    </>
   );
 };
 
 export default EmployeeList;
-

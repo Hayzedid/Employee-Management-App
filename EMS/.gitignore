@@ -163,4 +163,6 @@ temp/
 # Documentation and testing files
 TESTING_GUIDE.md
 *_GUIDE.md
+*_REPORT*.md
+DATABASE_REPORT*.md
 test-results/

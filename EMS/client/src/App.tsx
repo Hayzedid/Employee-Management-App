@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import './ModernApp.css';
 import Dashboard from './components/Dashboard';
 import EmployeeList from './components/EmployeeList';
 import AttendanceView from './components/AttendanceView';
-import { Users, BarChart3, Calendar } from 'lucide-react';
+import DatabaseAnalytics from './components/DatabaseAnalytics';
+import DepartmentAnalytics from './components/DepartmentAnalytics';
+import { Users, BarChart3, Calendar, Database, Code, Building2, TrendingUp, Clock, Briefcase } from 'lucide-react';
 
 interface Tab {
   id: string;
@@ -21,6 +23,18 @@ function App() {
       label: 'Dashboard',
       icon: <BarChart3 size={20} />,
       component: <Dashboard />
+    },
+    {
+      id: 'database-analytics',
+      label: 'Database Analytics',
+      icon: <Database size={20} />,
+      component: <DatabaseAnalytics />
+    },
+    {
+      id: 'department-analytics',
+      label: 'Department Analytics',
+      icon: <Building2 size={20} />,
+      component: <DepartmentAnalytics />
     },
     {
       id: 'employees',

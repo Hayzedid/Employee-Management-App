@@ -1,0 +1,1743 @@
+{
+  "/api/analytics/dashboard": {
+    "success": true,
+    "data": {
+      "employees": {
+        "total_employees": 156,
+        "active_employees": 142,
+        "terminated_employees": 14,
+        "male_employees": 78,
+        "female_employees": 78,
+        "average_salary": 75420,
+        "earliest_hire": "2020-01-15",
+        "latest_hire": "2024-09-15"
+      },
+      "departments": {
+        "total_departments": 8,
+        "active_departments": 8,
+        "total_budget": 6200000,
+        "average_budget": 775000
+      },
+      "recent_hires": [
+        {
+          "employee_id": 151,
+          "employee_name": "Sarah Johnson",
+          "employee_number": "EMP0151",
+          "hire_date": "2024-09-15",
+          "department_name": "Information Technology",
+          "position_title": "Software Engineer"
+        },
+        {
+          "employee_id": 152,
+          "employee_name": "Michael Chen",
+          "employee_number": "EMP0152",
+          "hire_date": "2024-09-10",
+          "department_name": "Marketing",
+          "position_title": "Marketing Specialist"
+        },
+        {
+          "employee_id": 153,
+          "employee_name": "Emily Rodriguez",
+          "employee_number": "EMP0153",
+          "hire_date": "2024-09-05",
+          "department_name": "Sales",
+          "position_title": "Sales Representative"
+        },
+        {
+          "employee_id": 154,
+          "employee_name": "David Kim",
+          "employee_number": "EMP0154",
+          "hire_date": "2024-08-28",
+          "department_name": "Finance",
+          "position_title": "Financial Analyst"
+        },
+        {
+          "employee_id": 155,
+          "employee_name": "Lisa Thompson",
+          "employee_number": "EMP0155",
+          "hire_date": "2024-08-20",
+          "department_name": "Human Resources",
+          "position_title": "HR Specialist"
+        }
+      ],
+      "top_departments": [
+        {
+          "department_name": "Information Technology",
+          "employee_count": 35,
+          "average_salary": 95000
+        },
+        {
+          "department_name": "Sales",
+          "employee_count": 28,
+          "average_salary": 68000
+        },
+        {
+          "department_name": "Marketing",
+          "employee_count": 22,
+          "average_salary": 72000
+        },
+        {
+          "department_name": "Finance",
+          "employee_count": 18,
+          "average_salary": 78000
+        },
+        {
+          "department_name": "Operations",
+          "employee_count": 16,
+          "average_salary": 65000
+        }
+      ],
+      "salary_distribution": [
+        {
+          "salary_range": "Under $40k",
+          "employee_count": 12
+        },
+        {
+          "salary_range": "$40k - $60k",
+          "employee_count": 34
+        },
+        {
+          "salary_range": "$60k - $80k",
+          "employee_count": 48
+        },
+        {
+          "salary_range": "$80k - $100k",
+          "employee_count": 38
+        },
+        {
+          "salary_range": "Over $100k",
+          "employee_count": 24
+        }
+      ]
+    }
+  },
+  "/api/analytics/complex-queries": {
+    "success": true,
+    "data": {
+      "employee_hierarchy": [
+        {
+          "employee_id": 1,
+          "employee_name": "John Smith",
+          "manager_id": null,
+          "level": 0,
+          "path": [
+            1
+          ],
+          "hierarchy_display": "John Smith"
+        },
+        {
+          "employee_id": 2,
+          "employee_name": "Jane Doe",
+          "manager_id": 1,
+          "level": 1,
+          "path": [
+            1,
+            2
+          ],
+          "hierarchy_display": "  Jane Doe"
+        },
+        {
+          "employee_id": 3,
+          "employee_name": "Mike Johnson",
+          "manager_id": 1,
+          "level": 1,
+          "path": [
+            1,
+            3
+          ],
+          "hierarchy_display": "  Mike Johnson"
+        },
+        {
+          "employee_id": 4,
+          "employee_name": "Sarah Wilson",
+          "manager_id": 2,
+          "level": 2,
+          "path": [
+            1,
+            2,
+            4
+          ],
+          "hierarchy_display": "    Sarah Wilson"
+        },
+        {
+          "employee_id": 5,
+          "employee_name": "Tom Brown",
+          "manager_id": 2,
+          "level": 2,
+          "path": [
+            1,
+            2,
+            5
+          ],
+          "hierarchy_display": "    Tom Brown"
+        },
+        {
+          "employee_id": 6,
+          "employee_name": "Lisa Davis",
+          "manager_id": 3,
+          "level": 2,
+          "path": [
+            1,
+            3,
+            6
+          ],
+          "hierarchy_display": "    Lisa Davis"
+        },
+        {
+          "employee_id": 7,
+          "employee_name": "Robert Miller",
+          "manager_id": 3,
+          "level": 2,
+          "path": [
+            1,
+            3,
+            7
+          ],
+          "hierarchy_display": "    Robert Miller"
+        },
+        {
+          "employee_id": 8,
+          "employee_name": "Emily Garcia",
+          "manager_id": 4,
+          "level": 3,
+          "path": [
+            1,
+            2,
+            4,
+            8
+          ],
+          "hierarchy_display": "      Emily Garcia"
+        },
+        {
+          "employee_id": 9,
+          "employee_name": "David Martinez",
+          "manager_id": 4,
+          "level": 3,
+          "path": [
+            1,
+            2,
+            4,
+            9
+          ],
+          "hierarchy_display": "      David Martinez"
+        },
+        {
+          "employee_id": 10,
+          "employee_name": "Jennifer Lopez",
+          "manager_id": 5,
+          "level": 3,
+          "path": [
+            1,
+            2,
+            5,
+            10
+          ],
+          "hierarchy_display": "      Jennifer Lopez"
+        }
+      ],
+      "department_performance": [
+        {
+          "department_name": "Information Technology",
+          "total_employees": 35,
+          "average_salary": 95000,
+          "oldest_employee": "2020-03-15",
+          "newest_employee": "2024-09-15",
+          "new_hires_1_year": 8,
+          "budget": 1200000,
+          "salary_budget_ratio": 78.5
+        },
+        {
+          "department_name": "Sales",
+          "total_employees": 28,
+          "average_salary": 68000,
+          "oldest_employee": "2020-05-20",
+          "newest_employee": "2024-08-30",
+          "new_hires_1_year": 6,
+          "budget": 900000,
+          "salary_budget_ratio": 84.2
+        },
+        {
+          "department_name": "Marketing",
+          "total_employees": 22,
+          "average_salary": 72000,
+          "oldest_employee": "2020-07-10",
+          "newest_employee": "2024-09-10",
+          "new_hires_1_year": 5,
+          "budget": 600000,
+          "salary_budget_ratio": 92.4
+        },
+        {
+          "department_name": "Finance",
+          "total_employees": 18,
+          "average_salary": 78000,
+          "oldest_employee": "2020-02-28",
+          "newest_employee": "2024-08-28",
+          "new_hires_1_year": 3,
+          "budget": 800000,
+          "salary_budget_ratio": 67.8
+        },
+        {
+          "department_name": "Human Resources",
+          "total_employees": 12,
+          "average_salary": 65000,
+          "oldest_employee": "2020-04-12",
+          "newest_employee": "2024-08-20",
+          "new_hires_1_year": 2,
+          "budget": 500000,
+          "salary_budget_ratio": 58.2
+        },
+        {
+          "department_name": "Operations",
+          "total_employees": 16,
+          "average_salary": 65000,
+          "oldest_employee": "2020-06-05",
+          "newest_employee": "2024-07-15",
+          "new_hires_1_year": 4,
+          "budget": 700000,
+          "salary_budget_ratio": 74.3
+        },
+        {
+          "department_name": "Research & Development",
+          "total_employees": 14,
+          "average_salary": 105000,
+          "oldest_employee": "2020-01-20",
+          "newest_employee": "2024-06-10",
+          "new_hires_1_year": 3,
+          "budget": 1500000,
+          "salary_budget_ratio": 48.7
+        },
+        {
+          "department_name": "Customer Support",
+          "total_employees": 11,
+          "average_salary": 52000,
+          "oldest_employee": "2020-08-15",
+          "newest_employee": "2024-05-25",
+          "new_hires_1_year": 2,
+          "budget": 400000,
+          "salary_budget_ratio": 71.5
+        }
+      ],
+      "attendance_patterns": [
+        {
+          "employee_id": 1,
+          "employee_name": "John Smith",
+          "department_name": "Information Technology",
+          "total_days": 65,
+          "present_days": 62,
+          "absent_days": 2,
+          "late_days": 1,
+          "attendance_percentage": 95.38,
+          "average_daily_hours": 8.2,
+          "total_overtime": 12.5
+        },
+        {
+          "employee_id": 2,
+          "employee_name": "Jane Doe",
+          "department_name": "Sales",
+          "total_days": 65,
+          "present_days": 63,
+          "absent_days": 1,
+          "late_days": 1,
+          "attendance_percentage": 96.92,
+          "average_daily_hours": 8.1,
+          "total_overtime": 8
+        },
+        {
+          "employee_id": 3,
+          "employee_name": "Mike Johnson",
+          "department_name": "Marketing",
+          "total_days": 65,
+          "present_days": 61,
+          "absent_days": 3,
+          "late_days": 1,
+          "attendance_percentage": 93.85,
+          "average_daily_hours": 8,
+          "total_overtime": 5.5
+        },
+        {
+          "employee_id": 4,
+          "employee_name": "Sarah Wilson",
+          "department_name": "Finance",
+          "total_days": 65,
+          "present_days": 64,
+          "absent_days": 1,
+          "late_days": 0,
+          "attendance_percentage": 98.46,
+          "average_daily_hours": 8.3,
+          "total_overtime": 15.2
+        },
+        {
+          "employee_id": 5,
+          "employee_name": "Tom Brown",
+          "department_name": "Human Resources",
+          "total_days": 65,
+          "present_days": 60,
+          "absent_days": 4,
+          "late_days": 1,
+          "attendance_percentage": 92.31,
+          "average_daily_hours": 7.9,
+          "total_overtime": 3
+        }
+      ],
+      "salary_progression": [
+        {
+          "employee_id": 1,
+          "employee_name": "John Smith",
+          "hire_date": "2020-03-15",
+          "current_salary": 120000,
+          "starting_salary": 85000,
+          "salary_increase_percentage": 41.18,
+          "years_with_company": 4
+        },
+        {
+          "employee_id": 2,
+          "employee_name": "Jane Doe",
+          "hire_date": "2021-01-20",
+          "current_salary": 95000,
+          "starting_salary": 70000,
+          "salary_increase_percentage": 35.71,
+          "years_with_company": 3
+        },
+        {
+          "employee_id": 3,
+          "employee_name": "Mike Johnson",
+          "hire_date": "2020-07-10",
+          "current_salary": 88000,
+          "starting_salary": 65000,
+          "salary_increase_percentage": 35.38,
+          "years_with_company": 4
+        },
+        {
+          "employee_id": 4,
+          "employee_name": "Sarah Wilson",
+          "hire_date": "2021-05-15",
+          "current_salary": 82000,
+          "starting_salary": 62000,
+          "salary_increase_percentage": 32.26,
+          "years_with_company": 3
+        },
+        {
+          "employee_id": 5,
+          "employee_name": "Tom Brown",
+          "hire_date": "2022-03-01",
+          "current_salary": 72000,
+          "starting_salary": 58000,
+          "salary_increase_percentage": 24.14,
+          "years_with_company": 2
+        }
+      ]
+    }
+  },
+  "/api/analytics/database-content": {
+    "success": true,
+    "data": {
+      "employees": [
+        {
+          "employee_id": 1,
+          "employee_number": "EMP0001",
+          "employee_name": "Michael Gonzalez",
+          "department_name": "Sales",
+          "position_title": "Project Manager",
+          "manager_name": null,
+          "hire_date": "2023-12-04",
+          "salary": 42740,
+          "employment_status": "ACTIVE",
+          "years_with_company": "1.8"
+        },
+        {
+          "employee_id": 2,
+          "employee_number": "EMP0002",
+          "employee_name": "John Martin",
+          "department_name": "Marketing",
+          "position_title": "Software Engineer",
+          "manager_name": null,
+          "hire_date": "2020-03-13",
+          "salary": 107097,
+          "employment_status": "ACTIVE",
+          "years_with_company": "5.6"
+        },
+        {
+          "employee_id": 3,
+          "employee_number": "EMP0003",
+          "employee_name": "Jane Smith",
+          "department_name": "Research & Development",
+          "position_title": "Senior Software Engineer",
+          "manager_name": null,
+          "hire_date": "2020-07-22",
+          "salary": 84319,
+          "employment_status": "ACTIVE",
+          "years_with_company": "5.2"
+        },
+        {
+          "employee_id": 4,
+          "employee_number": "EMP0004",
+          "employee_name": "Michael Miller",
+          "department_name": "Customer Support",
+          "position_title": "Sales Representative",
+          "manager_name": null,
+          "hire_date": "2021-07-19",
+          "salary": 62379,
+          "employment_status": "ACTIVE",
+          "years_with_company": "4.2"
+        },
+        {
+          "employee_id": 5,
+          "employee_number": "EMP0005",
+          "employee_name": "Elizabeth Rodriguez",
+          "department_name": "Research & Development",
+          "position_title": "Senior Software Engineer",
+          "manager_name": null,
+          "hire_date": "2022-02-01",
+          "salary": 126783,
+          "employment_status": "ACTIVE",
+          "years_with_company": "3.7"
+        },
+        {
+          "employee_id": 6,
+          "employee_number": "EMP0006",
+          "employee_name": "Robert Rodriguez",
+          "department_name": "Operations",
+          "position_title": "HR Specialist",
+          "manager_name": null,
+          "hire_date": "2023-10-09",
+          "salary": 104379,
+          "employment_status": "TERMINATED",
+          "years_with_company": "2.0"
+        },
+        {
+          "employee_id": 7,
+          "employee_number": "EMP0007",
+          "employee_name": "John Jones",
+          "department_name": "Operations",
+          "position_title": "Software Engineer",
+          "manager_name": null,
+          "hire_date": "2022-07-06",
+          "salary": 128265,
+          "employment_status": "ACTIVE",
+          "years_with_company": "3.2"
+        },
+        {
+          "employee_id": 8,
+          "employee_number": "EMP0008",
+          "employee_name": "David Martin",
+          "department_name": "Information Technology",
+          "position_title": "HR Specialist",
+          "manager_name": null,
+          "hire_date": "2020-06-11",
+          "salary": 75912,
+          "employment_status": "ACTIVE",
+          "years_with_company": "5.3"
+        },
+        {
+          "employee_id": 9,
+          "employee_number": "EMP0009",
+          "employee_name": "Linda Johnson",
+          "department_name": "Finance",
+          "position_title": "Senior Software Engineer",
+          "manager_name": null,
+          "hire_date": "2020-05-18",
+          "salary": 119403,
+          "employment_status": "TERMINATED",
+          "years_with_company": "5.4"
+        },
+        {
+          "employee_id": 10,
+          "employee_number": "EMP0010",
+          "employee_name": "Sarah Gonzalez",
+          "department_name": "Sales",
+          "position_title": "Financial Analyst",
+          "manager_name": null,
+          "hire_date": "2022-03-22",
+          "salary": 83105,
+          "employment_status": "ACTIVE",
+          "years_with_company": "3.5"
+        },
+        {
+          "employee_id": 11,
+          "employee_number": "EMP0011",
+          "employee_name": "William Smith",
+          "department_name": "Research & Development",
+          "position_title": "Software Engineer",
+          "manager_name": "Elizabeth Lopez",
+          "hire_date": "2021-09-24",
+          "salary": 91127,
+          "employment_status": "ACTIVE",
+          "years_with_company": "4.0"
+        },
+        {
+          "employee_id": 12,
+          "employee_number": "EMP0012",
+          "employee_name": "Patricia Thomas",
+          "department_name": "Marketing",
+          "position_title": "Senior Software Engineer",
+          "manager_name": "Jennifer Brown",
+          "hire_date": "2022-07-08",
+          "salary": 44045,
+          "employment_status": "ACTIVE",
+          "years_with_company": "3.2"
+        },
+        {
+          "employee_id": 13,
+          "employee_number": "EMP0013",
+          "employee_name": "Michael Jones",
+          "department_name": "Marketing",
+          "position_title": "Software Engineer",
+          "manager_name": "Susan Thomas",
+          "hire_date": "2020-06-08",
+          "salary": 49265,
+          "employment_status": "ACTIVE",
+          "years_with_company": "5.3"
+        },
+        {
+          "employee_id": 14,
+          "employee_number": "EMP0014",
+          "employee_name": "Thomas Brown",
+          "department_name": "Research & Development",
+          "position_title": "Team Lead",
+          "manager_name": "Jennifer Martin",
+          "hire_date": "2022-04-06",
+          "salary": 103142,
+          "employment_status": "ACTIVE",
+          "years_with_company": "3.5"
+        },
+        {
+          "employee_id": 15,
+          "employee_number": "EMP0015",
+          "employee_name": "James Jones",
+          "department_name": "Customer Support",
+          "position_title": "Project Manager",
+          "manager_name": "Elizabeth Thomas",
+          "hire_date": "2020-08-27",
+          "salary": 74061,
+          "employment_status": "ACTIVE",
+          "years_with_company": "5.1"
+        },
+        {
+          "employee_id": 16,
+          "employee_number": "EMP0016",
+          "employee_name": "John Martinez",
+          "department_name": "Customer Support",
+          "position_title": "Software Engineer",
+          "manager_name": "Lisa Davis",
+          "hire_date": "2022-05-01",
+          "salary": 72985,
+          "employment_status": "ACTIVE",
+          "years_with_company": "3.4"
+        },
+        {
+          "employee_id": 17,
+          "employee_number": "EMP0017",
+          "employee_name": "Elizabeth Davis",
+          "department_name": "Human Resources",
+          "position_title": "HR Specialist",
+          "manager_name": "Maria Martinez",
+          "hire_date": "2022-02-05",
+          "salary": 50100,
+          "employment_status": "ACTIVE",
+          "years_with_company": "3.7"
+        },
+        {
+          "employee_id": 18,
+          "employee_number": "EMP0018",
+          "employee_name": "Emily Miller",
+          "department_name": "Operations",
+          "position_title": "Software Engineer",
+          "manager_name": "John Miller",
+          "hire_date": "2021-08-15",
+          "salary": 122545,
+          "employment_status": "TERMINATED",
+          "years_with_company": "4.1"
+        },
+        {
+          "employee_id": 19,
+          "employee_number": "EMP0019",
+          "employee_name": "John Garcia",
+          "department_name": "Information Technology",
+          "position_title": "Senior Software Engineer",
+          "manager_name": "Jane Smith",
+          "hire_date": "2021-04-18",
+          "salary": 90139,
+          "employment_status": "ACTIVE",
+          "years_with_company": "4.5"
+        },
+        {
+          "employee_id": 20,
+          "employee_number": "EMP0020",
+          "employee_name": "Elizabeth Jackson",
+          "department_name": "Information Technology",
+          "position_title": "HR Specialist",
+          "manager_name": "Charles Jackson",
+          "hire_date": "2022-07-04",
+          "salary": 134326,
+          "employment_status": "ACTIVE",
+          "years_with_company": "3.2"
+        },
+        {
+          "employee_id": 21,
+          "employee_number": "EMP0021",
+          "employee_name": "Lisa Williams",
+          "department_name": "Finance",
+          "position_title": "Financial Analyst",
+          "manager_name": "Emily Brown",
+          "hire_date": "2023-02-10",
+          "salary": 71887,
+          "employment_status": "ACTIVE",
+          "years_with_company": "2.6"
+        },
+        {
+          "employee_id": 22,
+          "employee_number": "EMP0022",
+          "employee_name": "Emily Lopez",
+          "department_name": "Marketing",
+          "position_title": "Software Engineer",
+          "manager_name": "Jane Taylor",
+          "hire_date": "2020-11-05",
+          "salary": 41363,
+          "employment_status": "ACTIVE",
+          "years_with_company": "4.9"
+        },
+        {
+          "employee_id": 23,
+          "employee_number": "EMP0023",
+          "employee_name": "Emily Davis",
+          "department_name": "Information Technology",
+          "position_title": "Sales Representative",
+          "manager_name": "Susan Wilson",
+          "hire_date": "2023-07-09",
+          "salary": 107497,
+          "employment_status": "ACTIVE",
+          "years_with_company": "2.2"
+        },
+        {
+          "employee_id": 24,
+          "employee_number": "EMP0024",
+          "employee_name": "Robert Martin",
+          "department_name": "Marketing",
+          "position_title": "Project Manager",
+          "manager_name": "Jennifer Gonzalez",
+          "hire_date": "2022-04-10",
+          "salary": 118934,
+          "employment_status": "ACTIVE",
+          "years_with_company": "3.5"
+        },
+        {
+          "employee_id": 25,
+          "employee_number": "EMP0025",
+          "employee_name": "Richard Taylor",
+          "department_name": "Finance",
+          "position_title": "Financial Analyst",
+          "manager_name": "Susan Taylor",
+          "hire_date": "2022-08-11",
+          "salary": 84727,
+          "employment_status": "ACTIVE",
+          "years_with_company": "3.1"
+        },
+        {
+          "employee_id": 26,
+          "employee_number": "EMP0026",
+          "employee_name": "Linda Jackson",
+          "department_name": "Customer Support",
+          "position_title": "Sales Representative",
+          "manager_name": "David Jackson",
+          "hire_date": "2021-03-02",
+          "salary": 135992,
+          "employment_status": "ACTIVE",
+          "years_with_company": "4.6"
+        },
+        {
+          "employee_id": 27,
+          "employee_number": "EMP0027",
+          "employee_name": "Robert Johnson",
+          "department_name": "Sales",
+          "position_title": "Software Engineer",
+          "manager_name": "Jane Williams",
+          "hire_date": "2022-03-06",
+          "salary": 62109,
+          "employment_status": "ACTIVE",
+          "years_with_company": "3.6"
+        },
+        {
+          "employee_id": 28,
+          "employee_number": "EMP0028",
+          "employee_name": "Richard Davis",
+          "department_name": "Human Resources",
+          "position_title": "Project Manager",
+          "manager_name": "John Martin",
+          "hire_date": "2021-03-27",
+          "salary": 61060,
+          "employment_status": "TERMINATED",
+          "years_with_company": "4.5"
+        },
+        {
+          "employee_id": 29,
+          "employee_number": "EMP0029",
+          "employee_name": "John Davis",
+          "department_name": "Information Technology",
+          "position_title": "Financial Analyst",
+          "manager_name": "Charles Jackson",
+          "hire_date": "2020-10-03",
+          "salary": 57953,
+          "employment_status": "TERMINATED",
+          "years_with_company": "5.0"
+        },
+        {
+          "employee_id": 30,
+          "employee_number": "EMP0030",
+          "employee_name": "James Jones",
+          "department_name": "Marketing",
+          "position_title": "Senior Software Engineer",
+          "manager_name": "Linda Gonzalez",
+          "hire_date": "2021-07-31",
+          "salary": 82009,
+          "employment_status": "ACTIVE",
+          "years_with_company": "4.2"
+        },
+        {
+          "employee_id": 31,
+          "employee_number": "EMP0031",
+          "employee_name": "Michael Hernandez",
+          "department_name": "Finance",
+          "position_title": "Software Engineer",
+          "manager_name": "Michael Hernandez",
+          "hire_date": "2023-02-24",
+          "salary": 104698,
+          "employment_status": "ACTIVE",
+          "years_with_company": "2.6"
+        },
+        {
+          "employee_id": 32,
+          "employee_number": "EMP0032",
+          "employee_name": "Richard Miller",
+          "department_name": "Research & Development",
+          "position_title": "Team Lead",
+          "manager_name": "Elizabeth Gonzalez",
+          "hire_date": "2020-01-02",
+          "salary": 67009,
+          "employment_status": "ACTIVE",
+          "years_with_company": "5.7"
+        },
+        {
+          "employee_id": 33,
+          "employee_number": "EMP0033",
+          "employee_name": "Lisa Jackson",
+          "department_name": "Finance",
+          "position_title": "Software Engineer",
+          "manager_name": "Linda Johnson",
+          "hire_date": "2022-11-12",
+          "salary": 75107,
+          "employment_status": "ACTIVE",
+          "years_with_company": "2.9"
+        },
+        {
+          "employee_id": 34,
+          "employee_number": "EMP0034",
+          "employee_name": "Maria Garcia",
+          "department_name": "Marketing",
+          "position_title": "HR Specialist",
+          "manager_name": "Jane Rodriguez",
+          "hire_date": "2021-01-09",
+          "salary": 56477,
+          "employment_status": "TERMINATED",
+          "years_with_company": "4.7"
+        },
+        {
+          "employee_id": 35,
+          "employee_number": "EMP0035",
+          "employee_name": "William Rodriguez",
+          "department_name": "Marketing",
+          "position_title": "Financial Analyst",
+          "manager_name": "Christopher Moore",
+          "hire_date": "2020-02-27",
+          "salary": 85646,
+          "employment_status": "ACTIVE",
+          "years_with_company": "5.6"
+        },
+        {
+          "employee_id": 36,
+          "employee_number": "EMP0036",
+          "employee_name": "Robert Jones",
+          "department_name": "Human Resources",
+          "position_title": "Financial Analyst",
+          "manager_name": "Susan Gonzalez",
+          "hire_date": "2022-08-06",
+          "salary": 63048,
+          "employment_status": "ACTIVE",
+          "years_with_company": "3.2"
+        },
+        {
+          "employee_id": 37,
+          "employee_number": "EMP0037",
+          "employee_name": "Patricia Brown",
+          "department_name": "Research & Development",
+          "position_title": "HR Specialist",
+          "manager_name": "Sarah Martin",
+          "hire_date": "2021-03-01",
+          "salary": 70775,
+          "employment_status": "ACTIVE",
+          "years_with_company": "4.6"
+        },
+        {
+          "employee_id": 38,
+          "employee_number": "EMP0038",
+          "employee_name": "Elizabeth Miller",
+          "department_name": "Finance",
+          "position_title": "HR Specialist",
+          "manager_name": "Jennifer Johnson",
+          "hire_date": "2021-06-02",
+          "salary": 103333,
+          "employment_status": "ACTIVE",
+          "years_with_company": "4.3"
+        },
+        {
+          "employee_id": 39,
+          "employee_number": "EMP0039",
+          "employee_name": "Susan Brown",
+          "department_name": "Sales",
+          "position_title": "Software Engineer",
+          "manager_name": "John Moore",
+          "hire_date": "2021-02-26",
+          "salary": 118873,
+          "employment_status": "ACTIVE",
+          "years_with_company": "4.6"
+        },
+        {
+          "employee_id": 40,
+          "employee_number": "EMP0040",
+          "employee_name": "Jane Hernandez",
+          "department_name": "Human Resources",
+          "position_title": "Sales Representative",
+          "manager_name": "Jane Wilson",
+          "hire_date": "2021-07-26",
+          "salary": 66498,
+          "employment_status": "ACTIVE",
+          "years_with_company": "4.2"
+        },
+        {
+          "employee_id": 41,
+          "employee_number": "EMP0041",
+          "employee_name": "James Taylor",
+          "department_name": "Finance",
+          "position_title": "Sales Representative",
+          "manager_name": "Christopher Thomas",
+          "hire_date": "2020-09-19",
+          "salary": 64941,
+          "employment_status": "ACTIVE",
+          "years_with_company": "5.0"
+        },
+        {
+          "employee_id": 42,
+          "employee_number": "EMP0042",
+          "employee_name": "Lisa Williams",
+          "department_name": "Research & Development",
+          "position_title": "Team Lead",
+          "manager_name": "Lisa Moore",
+          "hire_date": "2022-09-25",
+          "salary": 61011,
+          "employment_status": "ACTIVE",
+          "years_with_company": "3.0"
+        },
+        {
+          "employee_id": 43,
+          "employee_number": "EMP0043",
+          "employee_name": "Emily Miller",
+          "department_name": "Operations",
+          "position_title": "Marketing Manager",
+          "manager_name": "Maria Wilson",
+          "hire_date": "2021-09-04",
+          "salary": 114313,
+          "employment_status": "TERMINATED",
+          "years_with_company": "4.1"
+        },
+        {
+          "employee_id": 44,
+          "employee_number": "EMP0044",
+          "employee_name": "Jane Miller",
+          "department_name": "Operations",
+          "position_title": "Sales Representative",
+          "manager_name": "Jennifer Martinez",
+          "hire_date": "2022-08-26",
+          "salary": 45796,
+          "employment_status": "ACTIVE",
+          "years_with_company": "3.1"
+        },
+        {
+          "employee_id": 45,
+          "employee_number": "EMP0045",
+          "employee_name": "Lisa Anderson",
+          "department_name": "Research & Development",
+          "position_title": "Project Manager",
+          "manager_name": "Richard Johnson",
+          "hire_date": "2021-12-23",
+          "salary": 40270,
+          "employment_status": "TERMINATED",
+          "years_with_company": "3.8"
+        },
+        {
+          "employee_id": 46,
+          "employee_number": "EMP0046",
+          "employee_name": "John Thomas",
+          "department_name": "Finance",
+          "position_title": "Software Engineer",
+          "manager_name": "Emily Taylor",
+          "hire_date": "2023-06-05",
+          "salary": 99554,
+          "employment_status": "ACTIVE",
+          "years_with_company": "2.3"
+        },
+        {
+          "employee_id": 47,
+          "employee_number": "EMP0047",
+          "employee_name": "Christopher Taylor",
+          "department_name": "Customer Support",
+          "position_title": "Marketing Manager",
+          "manager_name": "John Smith",
+          "hire_date": "2020-10-16",
+          "salary": 103885,
+          "employment_status": "ACTIVE",
+          "years_with_company": "5.0"
+        },
+        {
+          "employee_id": 48,
+          "employee_number": "EMP0048",
+          "employee_name": "Linda Gonzalez",
+          "department_name": "Sales",
+          "position_title": "Marketing Manager",
+          "manager_name": "Charles Thomas",
+          "hire_date": "2023-07-04",
+          "salary": 103597,
+          "employment_status": "ACTIVE",
+          "years_with_company": "2.2"
+        },
+        {
+          "employee_id": 49,
+          "employee_number": "EMP0049",
+          "employee_name": "Jennifer Thomas",
+          "department_name": "Human Resources",
+          "position_title": "HR Specialist",
+          "manager_name": "Patricia Rodriguez",
+          "hire_date": "2021-02-08",
+          "salary": 47999,
+          "employment_status": "ACTIVE",
+          "years_with_company": "4.6"
+        },
+        {
+          "employee_id": 50,
+          "employee_number": "EMP0050",
+          "employee_name": "Christopher Taylor",
+          "department_name": "Research & Development",
+          "position_title": "Marketing Manager",
+          "manager_name": "Christopher Gonzalez",
+          "hire_date": "2022-07-11",
+          "salary": 78748,
+          "employment_status": "ACTIVE",
+          "years_with_company": "3.2"
+        }
+      ],
+      "departments": [
+        {
+          "department_name": "Information Technology",
+          "location": "Building B, Floor 3",
+          "budget": 1200000,
+          "total_employees": 35,
+          "average_salary": 95000,
+          "manager_name": "John Smith",
+          "oldest_hire": "2020-03-15",
+          "newest_hire": "2024-09-15"
+        },
+        {
+          "department_name": "Sales",
+          "location": "Building C, Floor 1",
+          "budget": 900000,
+          "total_employees": 28,
+          "average_salary": 68000,
+          "manager_name": "Jane Doe",
+          "oldest_hire": "2020-05-20",
+          "newest_hire": "2024-08-30"
+        },
+        {
+          "department_name": "Marketing",
+          "location": "Building C, Floor 2",
+          "budget": 600000,
+          "total_employees": 22,
+          "average_salary": 72000,
+          "manager_name": "Mike Johnson",
+          "oldest_hire": "2020-07-10",
+          "newest_hire": "2024-09-10"
+        },
+        {
+          "department_name": "Finance",
+          "location": "Building A, Floor 1",
+          "budget": 800000,
+          "total_employees": 18,
+          "average_salary": 78000,
+          "manager_name": "Sarah Wilson",
+          "oldest_hire": "2020-02-28",
+          "newest_hire": "2024-08-28"
+        },
+        {
+          "department_name": "Human Resources",
+          "location": "Building A, Floor 2",
+          "budget": 500000,
+          "total_employees": 12,
+          "average_salary": 65000,
+          "manager_name": "Tom Brown",
+          "oldest_hire": "2020-04-12",
+          "newest_hire": "2024-08-20"
+        },
+        {
+          "department_name": "Operations",
+          "location": "Building B, Floor 1",
+          "budget": 700000,
+          "total_employees": 16,
+          "average_salary": 65000,
+          "manager_name": "Lisa Davis",
+          "oldest_hire": "2020-06-05",
+          "newest_hire": "2024-07-15"
+        },
+        {
+          "department_name": "Research & Development",
+          "location": "Building D, Floor 4",
+          "budget": 1500000,
+          "total_employees": 14,
+          "average_salary": 105000,
+          "manager_name": "Robert Miller",
+          "oldest_hire": "2020-01-20",
+          "newest_hire": "2024-06-10"
+        },
+        {
+          "department_name": "Customer Support",
+          "location": "Building A, Floor 3",
+          "budget": 400000,
+          "total_employees": 11,
+          "average_salary": 52000,
+          "manager_name": "Emily Garcia",
+          "oldest_hire": "2020-08-15",
+          "newest_hire": "2024-05-25"
+        }
+      ],
+      "attendance": [
+        {
+          "employee_name": "John Smith",
+          "department_name": "Operations",
+          "total_days": 64,
+          "present_days": 61,
+          "absent_days": 3,
+          "attendance_percentage": "95.3",
+          "average_hours": "7.6",
+          "overtime_hours": "5.8"
+        },
+        {
+          "employee_name": "Jane Doe",
+          "department_name": "Finance",
+          "total_days": 66,
+          "present_days": 59,
+          "absent_days": 7,
+          "attendance_percentage": "89.4",
+          "average_hours": "7.8",
+          "overtime_hours": "7.1"
+        },
+        {
+          "employee_name": "Mike Johnson",
+          "department_name": "Human Resources",
+          "total_days": 65,
+          "present_days": 61,
+          "absent_days": 4,
+          "attendance_percentage": "93.8",
+          "average_hours": "7.9",
+          "overtime_hours": "7.1"
+        },
+        {
+          "employee_name": "Sarah Wilson",
+          "department_name": "Information Technology",
+          "total_days": 60,
+          "present_days": 57,
+          "absent_days": 3,
+          "attendance_percentage": "95.0",
+          "average_hours": "8.0",
+          "overtime_hours": "18.7"
+        },
+        {
+          "employee_name": "Tom Brown",
+          "department_name": "Information Technology",
+          "total_days": 65,
+          "present_days": 64,
+          "absent_days": 1,
+          "attendance_percentage": "98.5",
+          "average_hours": "7.6",
+          "overtime_hours": "19.0"
+        },
+        {
+          "employee_name": "Lisa Davis",
+          "department_name": "Marketing",
+          "total_days": 62,
+          "present_days": 61,
+          "absent_days": 1,
+          "attendance_percentage": "98.4",
+          "average_hours": "8.0",
+          "overtime_hours": "15.3"
+        },
+        {
+          "employee_name": "Robert Miller",
+          "department_name": "Information Technology",
+          "total_days": 67,
+          "present_days": 65,
+          "absent_days": 2,
+          "attendance_percentage": "97.0",
+          "average_hours": "8.2",
+          "overtime_hours": "14.3"
+        },
+        {
+          "employee_name": "Emily Garcia",
+          "department_name": "Information Technology",
+          "total_days": 65,
+          "present_days": 60,
+          "absent_days": 5,
+          "attendance_percentage": "92.3",
+          "average_hours": "8.2",
+          "overtime_hours": "11.3"
+        },
+        {
+          "employee_name": "David Martinez",
+          "department_name": "Human Resources",
+          "total_days": 65,
+          "present_days": 62,
+          "absent_days": 3,
+          "attendance_percentage": "95.4",
+          "average_hours": "8.5",
+          "overtime_hours": "15.2"
+        },
+        {
+          "employee_name": "Jennifer Lopez",
+          "department_name": "Sales",
+          "total_days": 60,
+          "present_days": 58,
+          "absent_days": 2,
+          "attendance_percentage": "96.7",
+          "average_hours": "7.6",
+          "overtime_hours": "19.3"
+        },
+        {
+          "employee_name": "John Smith",
+          "department_name": "Sales",
+          "total_days": 69,
+          "present_days": 63,
+          "absent_days": 6,
+          "attendance_percentage": "91.3",
+          "average_hours": "7.9",
+          "overtime_hours": "15.5"
+        },
+        {
+          "employee_name": "Jane Doe",
+          "department_name": "Operations",
+          "total_days": 68,
+          "present_days": 63,
+          "absent_days": 5,
+          "attendance_percentage": "92.6",
+          "average_hours": "8.3",
+          "overtime_hours": "16.8"
+        },
+        {
+          "employee_name": "Mike Johnson",
+          "department_name": "Finance",
+          "total_days": 66,
+          "present_days": 64,
+          "absent_days": 2,
+          "attendance_percentage": "97.0",
+          "average_hours": "7.7",
+          "overtime_hours": "5.9"
+        },
+        {
+          "employee_name": "Sarah Wilson",
+          "department_name": "Human Resources",
+          "total_days": 66,
+          "present_days": 61,
+          "absent_days": 5,
+          "attendance_percentage": "92.4",
+          "average_hours": "8.4",
+          "overtime_hours": "4.1"
+        },
+        {
+          "employee_name": "Tom Brown",
+          "department_name": "Sales",
+          "total_days": 60,
+          "present_days": 59,
+          "absent_days": 1,
+          "attendance_percentage": "98.3",
+          "average_hours": "8.0",
+          "overtime_hours": "5.6"
+        },
+        {
+          "employee_name": "Lisa Davis",
+          "department_name": "Human Resources",
+          "total_days": 63,
+          "present_days": 61,
+          "absent_days": 2,
+          "attendance_percentage": "96.8",
+          "average_hours": "8.0",
+          "overtime_hours": "18.3"
+        },
+        {
+          "employee_name": "Robert Miller",
+          "department_name": "Information Technology",
+          "total_days": 65,
+          "present_days": 63,
+          "absent_days": 2,
+          "attendance_percentage": "96.9",
+          "average_hours": "8.3",
+          "overtime_hours": "7.5"
+        },
+        {
+          "employee_name": "Emily Garcia",
+          "department_name": "Sales",
+          "total_days": 62,
+          "present_days": 60,
+          "absent_days": 2,
+          "attendance_percentage": "96.8",
+          "average_hours": "7.9",
+          "overtime_hours": "9.5"
+        },
+        {
+          "employee_name": "David Martinez",
+          "department_name": "Customer Support",
+          "total_days": 65,
+          "present_days": 60,
+          "absent_days": 5,
+          "attendance_percentage": "92.3",
+          "average_hours": "7.7",
+          "overtime_hours": "0.7"
+        },
+        {
+          "employee_name": "Jennifer Lopez",
+          "department_name": "Information Technology",
+          "total_days": 67,
+          "present_days": 61,
+          "absent_days": 6,
+          "attendance_percentage": "91.0",
+          "average_hours": "7.7",
+          "overtime_hours": "8.3"
+        },
+        {
+          "employee_name": "John Smith",
+          "department_name": "Sales",
+          "total_days": 65,
+          "present_days": 59,
+          "absent_days": 6,
+          "attendance_percentage": "90.8",
+          "average_hours": "8.3",
+          "overtime_hours": "13.2"
+        },
+        {
+          "employee_name": "Jane Doe",
+          "department_name": "Customer Support",
+          "total_days": 60,
+          "present_days": 54,
+          "absent_days": 6,
+          "attendance_percentage": "90.0",
+          "average_hours": "7.5",
+          "overtime_hours": "2.1"
+        },
+        {
+          "employee_name": "Mike Johnson",
+          "department_name": "Research & Development",
+          "total_days": 63,
+          "present_days": 60,
+          "absent_days": 3,
+          "attendance_percentage": "95.2",
+          "average_hours": "8.0",
+          "overtime_hours": "16.6"
+        },
+        {
+          "employee_name": "Sarah Wilson",
+          "department_name": "Information Technology",
+          "total_days": 68,
+          "present_days": 67,
+          "absent_days": 1,
+          "attendance_percentage": "98.5",
+          "average_hours": "8.0",
+          "overtime_hours": "9.7"
+        },
+        {
+          "employee_name": "Tom Brown",
+          "department_name": "Customer Support",
+          "total_days": 67,
+          "present_days": 62,
+          "absent_days": 5,
+          "attendance_percentage": "92.5",
+          "average_hours": "8.1",
+          "overtime_hours": "6.4"
+        },
+        {
+          "employee_name": "Lisa Davis",
+          "department_name": "Information Technology",
+          "total_days": 65,
+          "present_days": 62,
+          "absent_days": 3,
+          "attendance_percentage": "95.4",
+          "average_hours": "8.5",
+          "overtime_hours": "15.4"
+        },
+        {
+          "employee_name": "Robert Miller",
+          "department_name": "Operations",
+          "total_days": 62,
+          "present_days": 59,
+          "absent_days": 3,
+          "attendance_percentage": "95.2",
+          "average_hours": "7.7",
+          "overtime_hours": "18.9"
+        },
+        {
+          "employee_name": "Emily Garcia",
+          "department_name": "Operations",
+          "total_days": 62,
+          "present_days": 59,
+          "absent_days": 3,
+          "attendance_percentage": "95.2",
+          "average_hours": "8.1",
+          "overtime_hours": "2.0"
+        },
+        {
+          "employee_name": "David Martinez",
+          "department_name": "Operations",
+          "total_days": 61,
+          "present_days": 55,
+          "absent_days": 6,
+          "attendance_percentage": "90.2",
+          "average_hours": "8.4",
+          "overtime_hours": "12.3"
+        },
+        {
+          "employee_name": "Jennifer Lopez",
+          "department_name": "Customer Support",
+          "total_days": 65,
+          "present_days": 62,
+          "absent_days": 3,
+          "attendance_percentage": "95.4",
+          "average_hours": "7.8",
+          "overtime_hours": "12.5"
+        }
+      ],
+      "salary_trends": [
+        {
+          "employee_name": "John Smith",
+          "current_salary": 103950,
+          "hire_date": "2021-05-06",
+          "department_name": "Sales",
+          "position_title": "Marketing Manager",
+          "years_with_company": "4.9",
+          "salary_growth": "45.5"
+        },
+        {
+          "employee_name": "Jane Doe",
+          "current_salary": 67341,
+          "hire_date": "2020-10-12",
+          "department_name": "Sales",
+          "position_title": "Senior Software Engineer",
+          "years_with_company": "2.0",
+          "salary_growth": "4.9"
+        },
+        {
+          "employee_name": "Mike Johnson",
+          "current_salary": 92679,
+          "hire_date": "2021-11-12",
+          "department_name": "Operations",
+          "position_title": "Project Manager",
+          "years_with_company": "2.8",
+          "salary_growth": "17.2"
+        },
+        {
+          "employee_name": "Sarah Wilson",
+          "current_salary": 69497,
+          "hire_date": "2023-08-17",
+          "department_name": "Sales",
+          "position_title": "Software Engineer",
+          "years_with_company": "4.6",
+          "salary_growth": "27.0"
+        },
+        {
+          "employee_name": "Tom Brown",
+          "current_salary": 106813,
+          "hire_date": "2023-05-22",
+          "department_name": "Information Technology",
+          "position_title": "Software Engineer",
+          "years_with_company": "2.5",
+          "salary_growth": "47.6"
+        },
+        {
+          "employee_name": "Lisa Davis",
+          "current_salary": 112652,
+          "hire_date": "2021-04-22",
+          "department_name": "Research & Development",
+          "position_title": "Software Engineer",
+          "years_with_company": "1.3",
+          "salary_growth": "7.7"
+        },
+        {
+          "employee_name": "Robert Miller",
+          "current_salary": 67195,
+          "hire_date": "2019-12-31",
+          "department_name": "Human Resources",
+          "position_title": "Team Lead",
+          "years_with_company": "2.9",
+          "salary_growth": "14.1"
+        },
+        {
+          "employee_name": "Emily Garcia",
+          "current_salary": 67748,
+          "hire_date": "2022-09-14",
+          "department_name": "Operations",
+          "position_title": "Software Engineer",
+          "years_with_company": "0.2",
+          "salary_growth": "45.5"
+        },
+        {
+          "employee_name": "David Martinez",
+          "current_salary": 106930,
+          "hire_date": "2022-04-08",
+          "department_name": "Customer Support",
+          "position_title": "Project Manager",
+          "years_with_company": "1.4",
+          "salary_growth": "0.6"
+        },
+        {
+          "employee_name": "Jennifer Lopez",
+          "current_salary": 66954,
+          "hire_date": "2023-01-21",
+          "department_name": "Finance",
+          "position_title": "Financial Analyst",
+          "years_with_company": "0.4",
+          "salary_growth": "5.2"
+        },
+        {
+          "employee_name": "John Smith",
+          "current_salary": 54872,
+          "hire_date": "2021-06-24",
+          "department_name": "Marketing",
+          "position_title": "Project Manager",
+          "years_with_company": "1.2",
+          "salary_growth": "10.3"
+        },
+        {
+          "employee_name": "Jane Doe",
+          "current_salary": 55774,
+          "hire_date": "2021-11-19",
+          "department_name": "Research & Development",
+          "position_title": "Marketing Manager",
+          "years_with_company": "2.6",
+          "salary_growth": "37.9"
+        },
+        {
+          "employee_name": "Mike Johnson",
+          "current_salary": 105767,
+          "hire_date": "2023-04-14",
+          "department_name": "Information Technology",
+          "position_title": "Project Manager",
+          "years_with_company": "4.5",
+          "salary_growth": "25.0"
+        },
+        {
+          "employee_name": "Sarah Wilson",
+          "current_salary": 110070,
+          "hire_date": "2023-01-14",
+          "department_name": "Information Technology",
+          "position_title": "Project Manager",
+          "years_with_company": "4.6",
+          "salary_growth": "31.5"
+        },
+        {
+          "employee_name": "Tom Brown",
+          "current_salary": 147071,
+          "hire_date": "2023-12-09",
+          "department_name": "Operations",
+          "position_title": "HR Specialist",
+          "years_with_company": "0.1",
+          "salary_growth": "30.6"
+        },
+        {
+          "employee_name": "Lisa Davis",
+          "current_salary": 108144,
+          "hire_date": "2021-07-08",
+          "department_name": "Marketing",
+          "position_title": "Financial Analyst",
+          "years_with_company": "4.7",
+          "salary_growth": "29.6"
+        },
+        {
+          "employee_name": "Robert Miller",
+          "current_salary": 79417,
+          "hire_date": "2022-12-05",
+          "department_name": "Research & Development",
+          "position_title": "Marketing Manager",
+          "years_with_company": "4.4",
+          "salary_growth": "8.5"
+        },
+        {
+          "employee_name": "Emily Garcia",
+          "current_salary": 51733,
+          "hire_date": "2021-06-18",
+          "department_name": "Operations",
+          "position_title": "Team Lead",
+          "years_with_company": "1.7",
+          "salary_growth": "6.4"
+        },
+        {
+          "employee_name": "David Martinez",
+          "current_salary": 149466,
+          "hire_date": "2020-02-27",
+          "department_name": "Human Resources",
+          "position_title": "Team Lead",
+          "years_with_company": "0.7",
+          "salary_growth": "40.2"
+        },
+        {
+          "employee_name": "Jennifer Lopez",
+          "current_salary": 106180,
+          "hire_date": "2021-06-09",
+          "department_name": "Marketing",
+          "position_title": "Marketing Manager",
+          "years_with_company": "4.1",
+          "salary_growth": "39.1"
+        },
+        {
+          "employee_name": "John Smith",
+          "current_salary": 108046,
+          "hire_date": "2021-09-10",
+          "department_name": "Research & Development",
+          "position_title": "Financial Analyst",
+          "years_with_company": "2.0",
+          "salary_growth": "1.8"
+        },
+        {
+          "employee_name": "Jane Doe",
+          "current_salary": 54473,
+          "hire_date": "2023-10-25",
+          "department_name": "Sales",
+          "position_title": "HR Specialist",
+          "years_with_company": "2.0",
+          "salary_growth": "8.6"
+        },
+        {
+          "employee_name": "Mike Johnson",
+          "current_salary": 98558,
+          "hire_date": "2021-02-16",
+          "department_name": "Customer Support",
+          "position_title": "HR Specialist",
+          "years_with_company": "5.0",
+          "salary_growth": "36.9"
+        },
+        {
+          "employee_name": "Sarah Wilson",
+          "current_salary": 132436,
+          "hire_date": "2020-02-24",
+          "department_name": "Sales",
+          "position_title": "Senior Software Engineer",
+          "years_with_company": "2.3",
+          "salary_growth": "12.1"
+        },
+        {
+          "employee_name": "Tom Brown",
+          "current_salary": 114005,
+          "hire_date": "2023-09-13",
+          "department_name": "Sales",
+          "position_title": "Project Manager",
+          "years_with_company": "4.9",
+          "salary_growth": "0.3"
+        }
+      ],
+      "recent_activities": [
+        {
+          "activity_type": "HIRE",
+          "description": "New employee joined the company",
+          "timestamp": "2024-09-15",
+          "employee_name": "Sarah Johnson"
+        },
+        {
+          "activity_type": "HIRE",
+          "description": "New employee joined the company",
+          "timestamp": "2024-09-10",
+          "employee_name": "Michael Chen"
+        },
+        {
+          "activity_type": "SALARY_UPDATE",
+          "description": "Salary adjustment processed",
+          "timestamp": "2024-09-05",
+          "employee_name": "David Kim"
+        },
+        {
+          "activity_type": "HIRE",
+          "description": "New employee joined the company",
+          "timestamp": "2024-09-05",
+          "employee_name": "Emily Rodriguez"
+        },
+        {
+          "activity_type": "SALARY_UPDATE",
+          "description": "Salary adjustment processed",
+          "timestamp": "2024-08-30",
+          "employee_name": "Lisa Thompson"
+        }
+      ],
+      "summary_stats": {
+        "total_employees": 156,
+        "total_departments": 8,
+        "average_salary": 75420,
+        "total_payroll": 11765520,
+        "attendance_rate": 94.2,
+        "new_hires_this_month": 5
+      }
+    }
+  },
+  "/api/analytics/schema-info": {
+    "success": true,
+    "data": {
+      "tables": [
+        {
+          "table_name": "employees",
+          "table_type": "BASE TABLE",
+          "table_schema": "public"
+        },
+        {
+          "table_name": "departments",
+          "table_type": "BASE TABLE",
+          "table_schema": "public"
+        },
+        {
+          "table_name": "positions",
+          "table_type": "BASE TABLE",
+          "table_schema": "public"
+        },
+        {
+          "table_name": "attendance_records",
+          "table_type": "BASE TABLE",
+          "table_schema": "public"
+        },
+        {
+          "table_name": "salary_history",
+          "table_type": "BASE TABLE",
+          "table_schema": "public"
+        },
+        {
+          "table_name": "performance_reviews",
+          "table_type": "BASE TABLE",
+          "table_schema": "public"
+        },
+        {
+          "table_name": "time_off_requests",
+          "table_type": "BASE TABLE",
+          "table_schema": "public"
+        }
+      ],
+      "columns": [],
+      "foreign_keys": [],
+      "indexes": []
+    }
+  },
+  "/api/analytics/database-details": {
+    "success": true,
+    "data": {
+      "constraints": [],
+      "detailed_columns": [],
+      "performance_stats": [],
+      "index_stats": []
+    }
+  }
+}
