@@ -114,7 +114,7 @@ async function seedDatabase() {
     const employees = generateEmployees(100, deptIds, posIds);
     for (const emp of employees) {
       await query(`
-        INSERT INTO employees (employee_number, first_name, last_name, email, phone, hire_date, employment_status, department_id, position_id, salary)
+        INSERT INTO employees (employee_number, first_name, last_name, personal_email, phone, hire_date, employment_status, department_id, position_id, salary)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
         ON CONFLICT (employee_number) DO NOTHING
       `, [emp.employee_number, emp.first_name, emp.last_name, emp.email, emp.phone, emp.hire_date, emp.employment_status, emp.department_id, emp.position_id, emp.salary]);
@@ -309,10 +309,10 @@ async function seedAttendanceRecords() {
       const overtimeHours = Math.max(0, totalHours - 8);
       
       await query(`
-        INSERT INTO attendance_records (employee_id, attendance_date, check_in_time, check_out_time, total_hours, overtime_hours, status)
-        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        INSERT INTO attendance_records (employee_id, attendance_date, check_in_time, check_out_time, overtime_hours, status)
+        VALUES ($1, $2, $3, $4, $5, $6)
         ON CONFLICT (employee_id, attendance_date) DO NOTHING
-      `, [emp.employee_id, date.toISOString().split('T')[0], checkIn, checkOut, totalHours.toFixed(2), overtimeHours.toFixed(2), status]);
+      `, [emp.employee_id, date.toISOString().split('T')[0], checkIn, checkOut, overtimeHours.toFixed(2), status]);
     }
   }
 }

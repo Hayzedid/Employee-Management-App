@@ -4,7 +4,7 @@ const { Pool } = require('pg');
 const pool = new Pool({
   user: process.env.DB_USER || 'postgres',
   host: process.env.DB_HOST || 'localhost',
-  database: process.env.DB_NAME || 'employee_management',
+  database: process.env.DB_NAME || 'Employee-Management-DB',
   password: process.env.DB_PASSWORD || 'password',
   port: process.env.DB_PORT || 5432,
   max: 20, // Maximum number of clients in the pool
@@ -14,11 +14,11 @@ const pool = new Pool({
 
 // Test database connection
 pool.on('connect', () => {
-  console.log('✅ Connected to PostgreSQL database');
+  console.log('Connected to PostgreSQL database');
 });
 
 pool.on('error', (err) => {
-  console.error('❌ Database connection error:', err);
+  console.error('Database connection error:', err);
   process.exit(-1);
 });
 
@@ -31,7 +31,7 @@ const query = async (text, params) => {
     console.log('📊 Query executed:', { text, duration, rows: res.rowCount });
     return res;
   } catch (error) {
-    console.error('❌ Query error:', error);
+    console.error('Query error:', error);
     throw error;
   }
 };

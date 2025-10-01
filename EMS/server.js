@@ -8,9 +8,13 @@ const employeeRoutes = require('./routes/employees');
 const departmentRoutes = require('./routes/departments');
 const attendanceRoutes = require('./routes/attendance');
 const analyticsRoutes = require('./routes/analytics');
+const seedRoutes = require('./routes/seed');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Trust proxy for rate limiting (fixes X-Forwarded-For warning)
+app.set('trust proxy', 1);
 
 // Security middleware
 app.use(helmet());
@@ -32,6 +36,7 @@ app.use('/api/employees', employeeRoutes);
 app.use('/api/departments', departmentRoutes);
 app.use('/api/attendance', attendanceRoutes);
 app.use('/api/analytics', analyticsRoutes);
+app.use('/api/seed', seedRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -58,9 +63,9 @@ app.use('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📊 Employee Management System API`);
-  console.log(`🔗 Health check: http://localhost:${PORT}/api/health`);
+  console.log(`Server running on port ${PORT}`);
+  console.log(`Employee Management System API`);
+  console.log(`Health check: http://localhost:${PORT}/api/health`);
 });
 
 module.exports = app;

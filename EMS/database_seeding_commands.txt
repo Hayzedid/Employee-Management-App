@@ -1,0 +1,218 @@
+-- Employee Management System Database Seeding Commands
+-- Copy and paste these commands into pgAdmin Query Tool
+-- Make sure you're connected to the 'employee_management_system' database
+
+-- FIRST: Show all tables and their columns in the database
+SELECT 'ALL TABLES IN DATABASE:' as info;
+SELECT tablename 
+FROM pg_tables 
+WHERE schemaname = 'public' 
+ORDER BY tablename;
+
+SELECT 'DETAILED TABLE STRUCTURE:' as info;
+SELECT 
+    t.table_name,
+    c.column_name,
+    c.data_type,
+    c.is_nullable,
+    c.column_default
+FROM information_schema.tables t
+JOIN information_schema.columns c ON t.table_name = c.table_name
+WHERE t.table_schema = 'public' 
+    AND t.table_type = 'BASE TABLE'
+ORDER BY t.table_name, c.ordinal_position;
+
+-- Show foreign key relationships
+SELECT 'FOREIGN KEY RELATIONSHIPS:' as info;
+SELECT 
+    tc.table_name, 
+    kcu.column_name, 
+    ccu.table_name AS foreign_table_name,
+    ccu.column_name AS foreign_column_name 
+FROM information_schema.table_constraints AS tc 
+JOIN information_schema.key_column_usage AS kcu
+    ON tc.constraint_name = kcu.constraint_name
+    AND tc.table_schema = kcu.table_schema
+JOIN information_schema.constraint_column_usage AS ccu
+    ON ccu.constraint_name = tc.constraint_name
+    AND ccu.table_schema = tc.table_schema
+WHERE tc.constraint_type = 'FOREIGN KEY' 
+    AND tc.table_schema='public'
+ORDER BY tc.table_name;
+
+-- SIMPLIFIED VERSION - Only works with existing basic tables (employees, departments, positions)
+
+-- First, let's check what departments and positions exist
+SELECT 'Current Departments:' as info;
+SELECT department_id, department_name FROM departments ORDER BY department_id;
+
+SELECT 'Current Positions:' as info;
+SELECT position_id, position_title, department_id FROM positions ORDER BY position_id;
+
+-- Add recent hires for October 2025 to show meaningful dashboard data
+-- Using only basic fields that definitely exist
+INSERT INTO employees (employee_number, first_name, last_name, personal_email, phone, department_id, position_id, salary, hire_date, employment_status)
+VALUES 
+  ('EMP200', 'Emma', 'Thompson', 'emma.thompson@personal.com', '+2348012300001', 1, 1, 155000.00, '2025-10-01', 'ACTIVE'),
+  ('EMP201', 'James', 'Wilson', 'james.wilson@personal.com', '+2348012300002', 1, 1, 125000.00, '2025-10-01', 'ACTIVE'),
+  ('EMP202', 'Sophia', 'Davis', 'sophia.davis@personal.com', '+2348012300003', 1, 1, 140000.00, '2025-10-02', 'ACTIVE'),
+  ('EMP203', 'Michael', 'Brown', 'michael.brown@personal.com', '+2348012300004', 1, 1, 110000.00, '2025-10-02', 'ACTIVE'),
+  ('EMP204', 'Isabella', 'Garcia', 'isabella.garcia@personal.com', '+2348012300005', 1, 1, 118000.00, '2025-10-03', 'ACTIVE'),
+  ('EMP205', 'William', 'Martinez', 'william.martinez@personal.com', '+2348012300006', 1, 1, 175000.00, '2025-10-03', 'ACTIVE'),
+  ('EMP206', 'Olivia', 'Rodriguez', 'olivia.rodriguez@personal.com', '+2348012300007', 1, 1, 165000.00, '2025-10-04', 'ACTIVE'),
+  ('EMP207', 'Alexander', 'Lopez', 'alexander.lopez@personal.com', '+2348012300008', 1, 1, 95000.00, '2025-10-04', 'ACTIVE'),
+  ('EMP208', 'Mia', 'Gonzalez', 'mia.gonzalez@personal.com', '+2348012300009', 1, 1, 108000.00, '2025-10-05', 'ACTIVE'),
+  ('EMP209', 'Benjamin', 'Hernandez', 'benjamin.hernandez@personal.com', '+2348012300010', 1, 1, 122000.00, '2025-10-05', 'ACTIVE'),
+  ('EMP210', 'Ava', 'Smith', 'ava.smith@personal.com', '+2348012300011', 1, 1, 130000.00, '2025-10-10', 'ACTIVE'),
+  ('EMP211', 'Noah', 'Johnson', 'noah.johnson@personal.com', '+2348012300012', 1, 1, 145000.00, '2025-10-15', 'ACTIVE'),
+  ('EMP212', 'Charlotte', 'Williams', 'charlotte.williams@personal.com', '+2348012300013', 1, 1, 135000.00, '2025-10-20', 'ACTIVE'),
+  ('EMP213', 'Liam', 'Jones', 'liam.jones@personal.com', '+2348012300014', 1, 1, 128000.00, '2025-10-25', 'ACTIVE'),
+  ('EMP214', 'Amelia', 'Brown', 'amelia.brown@personal.com', '+2348012300015', 1, 1, 142000.00, '2025-10-28', 'ACTIVE')
+ON CONFLICT (employee_number) DO NOTHING;
+
+-- Update some existing employees with recent hire dates for current month stats
+-- This will only work if these employee numbers exist
+UPDATE employees 
+SET hire_date = '2025-10-15'
+WHERE employee_number IN (
+  SELECT employee_number FROM employees 
+  WHERE employment_status = 'ACTIVE' 
+  ORDER BY employee_id 
+  LIMIT 3
+);
+
+-- Add more employees with different hire dates throughout the year for better analytics
+INSERT INTO employees (employee_number, first_name, last_name, personal_email, phone, department_id, position_id, salary, hire_date, employment_status)
+VALUES 
+  ('EMP215', 'Harper', 'Davis', 'harper.davis@personal.com', '+2348012300016', 1, 1, 138000.00, '2025-09-15', 'ACTIVE'),
+  ('EMP216', 'Ethan', 'Miller', 'ethan.miller@personal.com', '+2348012300017', 1, 1, 132000.00, '2025-08-20', 'ACTIVE'),
+  ('EMP217', 'Evelyn', 'Wilson', 'evelyn.wilson@personal.com', '+2348012300018', 1, 1, 147000.00, '2025-07-10', 'ACTIVE'),
+  ('EMP218', 'Mason', 'Moore', 'mason.moore@personal.com', '+2348012300019', 1, 1, 126000.00, '2025-06-25', 'ACTIVE'),
+  ('EMP219', 'Abigail', 'Taylor', 'abigail.taylor@personal.com', '+2348012300020', 1, 1, 134000.00, '2025-05-18', 'ACTIVE')
+ON CONFLICT (employee_number) DO NOTHING;
+
+-- Check attendance_records table structure first
+SELECT 'ATTENDANCE_RECORDS TABLE COLUMNS:' as info;
+SELECT column_name, data_type, is_nullable 
+FROM information_schema.columns 
+WHERE table_name = 'attendance_records' 
+ORDER BY ordinal_position;
+
+-- Add attendance records for better analytics (using actual table name: attendance_records)
+-- First let's see what columns exist, then uncomment and fix the INSERT below
+/*
+INSERT INTO attendance_records (employee_id, date, time_in, time_out, status, hours_worked)
+SELECT 
+  e.employee_id,
+  generate_series(CURRENT_DATE - INTERVAL '29 days', CURRENT_DATE, '1 day'::interval)::date as attendance_date,
+  '09:00:00'::TIME + (RANDOM() * INTERVAL '1 hour'),
+  '17:00:00'::TIME + (RANDOM() * INTERVAL '2 hours'),
+  CASE 
+    WHEN RANDOM() > 0.15 THEN 'PRESENT'
+    WHEN RANDOM() > 0.05 THEN 'LATE'  
+    ELSE 'ABSENT'
+  END,
+  8.0 + (RANDOM() * 2)
+FROM employees e
+WHERE e.employee_number LIKE 'EMP2%' -- Only for our new employees
+AND e.employment_status = 'ACTIVE'
+ON CONFLICT (employee_id, date) DO NOTHING;
+*/
+
+-- Check performance_reviews table structure
+SELECT 'PERFORMANCE_REVIEWS TABLE COLUMNS:' as info;
+SELECT column_name, data_type, is_nullable 
+FROM information_schema.columns 
+WHERE table_name = 'performance_reviews' 
+ORDER BY ordinal_position;
+
+-- Add performance reviews for some employees (commented out until we verify column names)
+/*
+INSERT INTO performance_reviews (employee_id, review_period_start, review_period_end, overall_rating, goals_achievement, technical_skills, communication_skills, leadership_skills, reviewer_id, review_date, comments, status)
+SELECT 
+  e.employee_id,
+  '2025-01-01'::DATE,
+  '2025-06-30'::DATE,
+  (RANDOM() * 2 + 3)::DECIMAL(3,2), -- Rating between 3.0 and 5.0
+  (RANDOM() * 2 + 3)::DECIMAL(3,2),
+  (RANDOM() * 2 + 3)::DECIMAL(3,2),
+  (RANDOM() * 2 + 3)::DECIMAL(3,2),
+  (RANDOM() * 2 + 3)::DECIMAL(3,2),
+  1, -- Assuming reviewer ID 1
+  CURRENT_DATE - (RANDOM() * 90)::INTEGER,
+  'Performance review completed for H1 2025',
+  'COMPLETED'
+FROM employees e
+WHERE e.employee_number IN ('EMP200', 'EMP201', 'EMP202', 'EMP203', 'EMP204')
+AND NOT EXISTS (
+  SELECT 1 FROM performance_reviews pr 
+  WHERE pr.employee_id = e.employee_id 
+  AND pr.review_period_start = '2025-01-01'
+);
+*/
+
+-- Check salary_history table structure
+SELECT 'SALARY_HISTORY TABLE COLUMNS:' as info;
+SELECT column_name, data_type, is_nullable 
+FROM information_schema.columns 
+WHERE table_name = 'salary_history' 
+ORDER BY ordinal_position;
+
+-- Add salary history for trending analytics (commented out until we verify column names)
+/*
+INSERT INTO salary_history (employee_id, effective_date, old_salary, new_salary, reason, approved_by)
+SELECT 
+  e.employee_id,
+  e.hire_date + INTERVAL '3 months',
+  e.salary * 0.9, -- Previous salary (10% less)
+  e.salary,
+  'Initial salary adjustment',
+  1 -- Assuming approver ID 1
+FROM employees e
+WHERE e.employee_number IN ('EMP200', 'EMP201', 'EMP202', 'EMP203', 'EMP204', 'EMP205')
+AND e.hire_date < CURRENT_DATE - INTERVAL '3 months'
+AND NOT EXISTS (
+  SELECT 1 FROM salary_history sh 
+  WHERE sh.employee_id = e.employee_id
+);
+*/
+
+-- Verify the seeding results
+SELECT 'SEEDING RESULTS SUMMARY:' as info;
+
+SELECT 
+  COUNT(*) as total_employees,
+  COUNT(CASE WHEN hire_date >= CURRENT_DATE - INTERVAL '30 days' THEN 1 END) as new_hires_this_month,
+  COUNT(CASE WHEN employment_status = 'ACTIVE' THEN 1 END) as active_employees,
+  ROUND(AVG(salary), 2) as average_salary
+FROM employees;
+
+-- Show recent hires for verification (October 2025)
+SELECT 'NEW HIRES IN OCTOBER 2025:' as info;
+SELECT employee_number, first_name, last_name, hire_date, salary, employment_status
+FROM employees 
+WHERE hire_date >= '2025-10-01'
+ORDER BY hire_date DESC;
+
+-- Show overall employee distribution
+SELECT 'EMPLOYEE STATUS DISTRIBUTION:' as info;
+SELECT 
+  employment_status,
+  COUNT(*) as count,
+  ROUND(AVG(salary), 2) as avg_salary
+FROM employees 
+GROUP BY employment_status
+ORDER BY count DESC;
+
+-- Show salary statistics
+SELECT 'SALARY STATISTICS:' as info;
+SELECT 
+  COUNT(*) as total_employees,
+  MIN(salary) as min_salary,
+  MAX(salary) as max_salary,
+  ROUND(AVG(salary), 2) as avg_salary,
+  ROUND(STDDEV(salary), 2) as salary_stddev
+FROM employees 
+WHERE employment_status = 'ACTIVE';
+
+COMMIT;

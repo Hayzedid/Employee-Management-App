@@ -1,0 +1,688 @@
+/* Dashboard Container */
+.dashboard-container {
+  min-height: 100vh;
+  background: #f8fafc;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* Hero Section */
+.dashboard-hero {
+  background: rgba(255,255,255,0.95);
+  padding: 3rem 2rem;
+  margin-bottom: 2rem;
+  border-radius: 0 0 30px 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.hero-content {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.hero-content h2 {
+  font-size: 1.3rem;
+  color: #4a5568;
+  margin: 0.5rem 0;
+  font-weight: 500;
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  color: #718096;
+  margin: 0;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #667eea;
+  display: block;
+}
+
+.hero-label {
+  font-size: 0.9rem;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 0.5rem;
+}
+
+/* Loading and Error States */
+.loading-state, .error-state, .no-data-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  color: white;
+  padding: 2rem;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(255,255,255,0.3);
+  border-top: 4px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  background: rgba(255,255,255,0.1);
+  padding: 1rem;
+  border-radius: 10px;
+  margin: 1rem 0;
+  font-family: monospace;
+}
+
+.retry-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.retry-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Metrics Section */
+.metrics-section {
+  padding: 0 2rem 2rem;
+}
+
+.metrics-section h3 {
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.metric-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #2563eb;
+}
+
+.metric-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.metric-card.active::before {
+  background: #059669;
+}
+
+.metric-card.salary::before {
+  background: #d97706;
+}
+
+.metric-card.departments::before {
+  background: #2563eb;
+}
+
+.metric-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.metric-value {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+}
+
+.metric-label {
+  font-size: 1.1rem;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.metric-change {
+  font-size: 0.9rem;
+  color: #718096;
+  font-style: italic;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  padding: 0 2rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Dashboard Cards */
+.dashboard-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #2563eb;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.dashboard-card.featured {
+  grid-column: span 2;
+}
+
+.dashboard-card.featured::before {
+  background: #059669;
+  height: 6px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f7fafc;
+}
+
+.card-header h3 {
+  font-size: 1.3rem;
+  color: #2d3748;
+  margin: 0;
+  font-weight: 600;
+}
+
+.card-count {
+  background: #2563eb;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Recent Hires */
+.hires-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.hire-card {
+  background: #f7fafc;
+  border-radius: 15px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.hire-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  border-color: #667eea;
+}
+
+.hire-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 auto 1rem;
+}
+
+.hire-info h4 {
+  margin: 0 0 0.5rem 0;
+  color: #2d3748;
+  font-size: 1.1rem;
+}
+
+.hire-position {
+  color: #4a5568;
+  font-weight: 600;
+  margin: 0 0 0.3rem 0;
+  font-size: 0.9rem;
+}
+
+.hire-department {
+  color: #718096;
+  margin: 0 0 1rem 0;
+  font-size: 0.85rem;
+}
+
+.hire-details {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.8rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.hire-date, .hire-salary {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #667eea;
+}
+
+/* Departments */
+.departments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.department-row {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: #f7fafc;
+  border-radius: 12px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.department-row:hover {
+  background: #edf2f7;
+  transform: translateX(5px);
+}
+
+.dept-rank {
+  background: #2563eb;
+  color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-right: 1rem;
+}
+
+.dept-info {
+  flex: 1;
+}
+
+.dept-info h4 {
+  margin: 0 0 0.3rem 0;
+  color: #2d3748;
+  font-size: 1rem;
+}
+
+.dept-stats {
+  display: flex;
+  gap: 1rem;
+}
+
+.dept-employees, .dept-avg-salary {
+  font-size: 0.85rem;
+  color: #718096;
+}
+
+.dept-total {
+  text-align: right;
+}
+
+.dept-total strong {
+  display: block;
+  color: #2d3748;
+  font-size: 1.1rem;
+}
+
+.dept-total small {
+  color: #718096;
+  font-size: 0.75rem;
+}
+
+/* Salary Distribution */
+.salary-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.salary-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.salary-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.range-name {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.range-avg {
+  font-size: 0.9rem;
+  color: #718096;
+}
+
+.salary-bar-container {
+  position: relative;
+  background: #f7fafc;
+  height: 40px;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.salary-bar-fill {
+  background: #2563eb;
+  height: 100%;
+  border-radius: 20px;
+  transition: width 0.8s ease;
+  min-width: 30px;
+}
+
+/* Dynamic width classes for salary bars */
+.width-100 { width: 100%; }
+.width-99, .width-98, .width-97, .width-96, .width-95 { width: 95%; }
+.width-94, .width-93, .width-92, .width-91, .width-90 { width: 90%; }
+.width-89, .width-88, .width-87, .width-86, .width-85 { width: 85%; }
+.width-84, .width-83, .width-82, .width-81, .width-80 { width: 80%; }
+.width-79, .width-78, .width-77, .width-76, .width-75 { width: 75%; }
+.width-74, .width-73, .width-72, .width-71, .width-70 { width: 70%; }
+.width-69, .width-68, .width-67, .width-66, .width-65 { width: 65%; }
+.width-64, .width-63, .width-62, .width-61, .width-60 { width: 60%; }
+.width-59, .width-58, .width-57, .width-56, .width-55 { width: 55%; }
+.width-54, .width-53, .width-52, .width-51, .width-50 { width: 50%; }
+.width-49, .width-48, .width-47, .width-46, .width-45 { width: 45%; }
+.width-44, .width-43, .width-42, .width-41, .width-40 { width: 40%; }
+.width-39, .width-38, .width-37, .width-36, .width-35 { width: 35%; }
+.width-34, .width-33, .width-32, .width-31, .width-30 { width: 30%; }
+.width-29, .width-28, .width-27, .width-26, .width-25 { width: 25%; }
+.width-24, .width-23, .width-22, .width-21, .width-20 { width: 20%; }
+.width-19, .width-18, .width-17, .width-16, .width-15 { width: 15%; }
+.width-14, .width-13, .width-12, .width-11, .width-10 { width: 10%; }
+.width-9, .width-8, .width-7, .width-6, .width-5 { width: 8%; }
+.width-4, .width-3, .width-2, .width-1, .width-0 { width: 5%; }
+
+.salary-count {
+  position: absolute;
+  right: 1rem;
+  color: #4a5568;
+  font-weight: 600;
+  font-size: 0.9rem;
+  z-index: 10;
+}
+
+/* Top Performers */
+.performers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.performer-row {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: #f7fafc;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.performer-row:hover {
+  background: #edf2f7;
+  transform: translateX(3px);
+}
+
+.performer-rank {
+  margin-right: 1rem;
+}
+
+.rank-number {
+  background: #d97706;
+  color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.performer-info {
+  flex: 1;
+}
+
+.performer-info h4 {
+  margin: 0;
+  color: #2d3748;
+  font-size: 1rem;
+}
+
+.performer-info p {
+  margin: 0.2rem 0;
+  color: #4a5568;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.performer-info small {
+  color: #718096;
+  font-size: 0.8rem;
+}
+
+.performer-salary {
+  text-align: right;
+}
+
+.performer-salary strong {
+  display: block;
+  color: #2d3748;
+  font-size: 1.1rem;
+}
+
+.performer-salary small {
+  color: #718096;
+  font-size: 0.75rem;
+}
+
+/* Footer */
+.dashboard-footer {
+  background: rgba(255,255,255,0.95);
+  padding: 2rem;
+  margin-top: 2rem;
+  border-radius: 30px 30px 0 0;
+  text-align: center;
+}
+
+.footer-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #718096;
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stat-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #667eea;
+}
+
+.dashboard-footer p {
+  color: #4a5568;
+  margin: 1rem 0 0 0;
+  font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 0;
+  }
+  
+  .dashboard-hero {
+    padding: 2rem 1rem;
+    border-radius: 0;
+  }
+  
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  
+  .hero-stats {
+    gap: 1.5rem;
+  }
+  
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+  }
+  
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    padding: 0 1rem 2rem;
+  }
+  
+  .dashboard-card.featured {
+    grid-column: span 1;
+  }
+  
+  .hires-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-stats {
+    gap: 1.5rem;
+  }
+  
+  .dept-stats {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-stats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .salary-label {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+  
+  .dept-stats {
+    gap: 0.1rem;
+  }
+  
+  .footer-stats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

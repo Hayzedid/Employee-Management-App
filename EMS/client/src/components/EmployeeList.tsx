@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Plus, Edit, Trash2, CheckCircle, AlertCircle } from 'lucide-react';
+import { Search, Plus, Edit, Trash2, CheckCircle, AlertCircle, Filter, Download, MoreVertical, Eye, SortAsc, SortDesc } from 'lucide-react';
 
 interface Department {
   department_id: number;
@@ -45,6 +45,12 @@ const EmployeeList: React.FC = () => {
   const [deleteEmployeeError, setDeleteEmployeeError] = useState<string | null>(null);
   const [addEmployeeSuccess, setAddEmployeeSuccess] = useState(false);
   const [deleteEmployeeSuccess, setDeleteEmployeeSuccess] = useState(false);
+  const [sortField, setSortField] = useState<keyof Employee>('last_name');
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  const [filterDepartment, setFilterDepartment] = useState<string>('all');
+  const [filterStatus, setFilterStatus] = useState<string>('all');
   const [newEmployee, setNewEmployee] = useState<Employee>({
     employee_number: '',
     first_name: '',
@@ -67,7 +73,7 @@ const EmployeeList: React.FC = () => {
   const fetchEmployees = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/employees');
+      const response = await fetch('/api/employees');
       if (!response.ok) {
         throw new Error('Failed to fetch employees');
       }
@@ -82,7 +88,7 @@ const EmployeeList: React.FC = () => {
 
   const fetchDepartments = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/departments');
+      const response = await fetch('/api/departments');
       if (!response.ok) {
         throw new Error('Failed to fetch departments');
       }
@@ -112,12 +118,68 @@ const EmployeeList: React.FC = () => {
     }
   };
 
-  const filteredEmployees = employees.filter(employee =>
-    employee.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    employee.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    employee.employee_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (employee.department_name && employee.department_name.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
+  const filteredEmployees = employees.filter(employee => {
+    const matchesSearch = 
+      employee.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.employee_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (employee.department_name && employee.department_name.toLowerCase().includes(searchTerm.toLowerCase()));
+    
+    const matchesDepartment = filterDepartment === 'all' || 
+      (employee.department_name && employee.department_name === filterDepartment);
+    
+    const matchesStatus = filterStatus === 'all' || 
+      (employee.employment_status && employee.employment_status === filterStatus);
+    
+    return matchesSearch && matchesDepartment && matchesStatus;
+  });
+
+  const sortedEmployees = [...filteredEmployees].sort((a, b) => {
+    const aValue = a[sortField] || '';
+    const bValue = b[sortField] || '';
+    
+    if (sortDirection === 'asc') {
+      return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
+    } else {
+      return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
+    }
+  });
+
+  const totalPages = Math.ceil(sortedEmployees.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedEmployees = sortedEmployees.slice(startIndex, startIndex + itemsPerPage);
+
+  const handleSort = (field: keyof Employee) => {
+    if (sortField === field) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortField(field);
+      setSortDirection('asc');
+    }
+  };
+
+  const handleExport = () => {
+    const csvContent = [
+      ['Name', 'Employee #', 'Email', 'Department', 'Position', 'Status', 'Salary'],
+      ...sortedEmployees.map(emp => [
+        `${emp.first_name} ${emp.last_name}`,
+        emp.employee_number,
+        emp.personal_email,
+        emp.department_name || '',
+        emp.position_title || '',
+        emp.employment_status || '',
+        emp.salary || ''
+      ])
+    ].map(row => row.join(',')).join('\n');
+    
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'employees.csv';
+    a.click();
+    window.URL.revokeObjectURL(url);
+  };
 
   const validateEmployeeForm = () => {
     const errors: string[] = [];
@@ -167,7 +229,7 @@ const EmployeeList: React.FC = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/employees', {
+      const response = await fetch('/api/employees', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -217,7 +279,7 @@ const EmployeeList: React.FC = () => {
     setDeleteEmployeeSuccess(false);
 
     try {
-      const response = await fetch(`http://localhost:5000/api/employees/${employeeId}`, {
+      const response = await fetch(`/api/employees/${employeeId}`, {
         method: 'DELETE',
       });
 
@@ -256,44 +318,120 @@ const EmployeeList: React.FC = () => {
 
   return (
     <>
-      <div className="employee-search-container">
-          <div className="employee-search-wrapper">
-            <Search size={20} className="employee-search-icon" />
-            <input
-              type="text"
-              placeholder="Search employees by name, number, or department..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="employee-search-input"
-            />
-          </div>
-          <button
-            onClick={() => setShowAddModal(true)}
-            className="employee-add-btn"
-          >
-            <Plus size={16} />
-            Add Employee
-          </button>
+      {/* Enhanced Search and Filter Controls */}
+      <div className="search-container">
+        <div className="search-input">
+          <Search size={20} />
+          <input
+            type="text"
+            placeholder="Search employees by name, number, or department..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="form-input"
+          />
         </div>
+        
+        <select
+          value={filterDepartment}
+          onChange={(e) => setFilterDepartment(e.target.value)}
+          className="form-select filter-select"
+        >
+          <option value="all">All Departments</option>
+          {departments.map(dept => (
+            <option key={dept.department_id} value={dept.department_name}>
+              {dept.department_name}
+            </option>
+          ))}
+        </select>
+
+        <select
+          value={filterStatus}
+          onChange={(e) => setFilterStatus(e.target.value)}
+          className="form-select filter-select"
+        >
+          <option value="all">All Status</option>
+          <option value="ACTIVE">Active</option>
+          <option value="TERMINATED">Terminated</option>
+          <option value="INACTIVE">Inactive</option>
+        </select>
+
+        <button onClick={handleExport} className="btn btn-secondary">
+          <Download size={16} />
+          Export
+        </button>
+
+        <button onClick={() => setShowAddModal(true)} className="btn btn-primary">
+          <Plus size={16} />
+          Add Employee
+        </button>
+      </div>
 
       {/* Employee Table */}
       <div className="card">
+        <div className="card-header">
+          <h3 className="card-title">Employee Directory</h3>
+          <p className="card-subtitle">
+            Showing {paginatedEmployees.length} of {sortedEmployees.length} employees
+          </p>
+        </div>
         <div className="table-container">
           <table>
             <thead>
               <tr>
-                <th>Employee</th>
-                <th>Employee #</th>
-                <th>Department</th>
-                <th>Position</th>
+                <th onClick={() => handleSort('first_name')} style={{ cursor: 'pointer' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    Employee
+                    {sortField === 'first_name' && (
+                      sortDirection === 'asc' ? <SortAsc size={16} /> : <SortDesc size={16} />
+                    )}
+                  </div>
+                </th>
+                <th onClick={() => handleSort('employee_number')} style={{ cursor: 'pointer' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    Employee #
+                    {sortField === 'employee_number' && (
+                      sortDirection === 'asc' ? <SortAsc size={16} /> : <SortDesc size={16} />
+                    )}
+                  </div>
+                </th>
+                <th onClick={() => handleSort('department_name')} style={{ cursor: 'pointer' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    Department
+                    {sortField === 'department_name' && (
+                      sortDirection === 'asc' ? <SortAsc size={16} /> : <SortDesc size={16} />
+                    )}
+                  </div>
+                </th>
+                <th onClick={() => handleSort('position_title')} style={{ cursor: 'pointer' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    Position
+                    {sortField === 'position_title' && (
+                      sortDirection === 'asc' ? <SortAsc size={16} /> : <SortDesc size={16} />
+                    )}
+                  </div>
+                </th>
                 <th>Manager</th>
-                <th>Status</th>
-                <th>Salary</th>
+                <th onClick={() => handleSort('employment_status')} style={{ cursor: 'pointer' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    Status
+                    {sortField === 'employment_status' && (
+                      sortDirection === 'asc' ? <SortAsc size={16} /> : <SortDesc size={16} />
+                    )}
+                  </div>
+                </th>
+                <th onClick={() => handleSort('salary')} style={{ cursor: 'pointer' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    Salary
+                    {sortField === 'salary' && (
+                      sortDirection === 'asc' ? <SortAsc size={16} /> : <SortDesc size={16} />
+                    )}
+                  </div>
+                </th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {filteredEmployees.map((employee) => (
+              {paginatedEmployees.map((employee) => (
                 <tr key={employee.employee_id}>
                   <td>
                     <div>
@@ -311,10 +449,10 @@ const EmployeeList: React.FC = () => {
                   <td>{employee.manager_name || 'N/A'}</td>
                   <td>
                     <span
-                      className={`employee-status-badge ${
+                      className={`status-badge ${
                         employee.employment_status === 'ACTIVE'
-                          ? 'employee-status-active'
-                          : 'employee-status-terminated'
+                          ? 'status-active'
+                          : 'status-terminated'
                       }`}
                     >
                       {employee.employment_status}
@@ -322,16 +460,26 @@ const EmployeeList: React.FC = () => {
                   </td>
                   <td>${employee.salary?.toLocaleString() || 'N/A'}</td>
                   <td>
-                    <div className="employee-actions">
+                    <div style={{ display: 'flex', gap: '0.5rem' }}>
                       <button
-                        className="employee-action-btn employee-action-edit"
+                        onClick={() => setSelectedEmployee(employee)}
+                        className="btn btn-secondary"
+                        style={{ padding: '0.5rem' }}
+                        title="View Details"
+                      >
+                        <Eye size={16} />
+                      </button>
+                      <button
+                        className="btn btn-secondary"
+                        style={{ padding: '0.5rem' }}
                         title="Edit"
                       >
                         <Edit size={16} />
                       </button>
                       <button
                         onClick={() => handleDeleteEmployee(employee.employee_id!)}
-                        className="employee-action-btn employee-action-delete"
+                        className="btn btn-secondary"
+                        style={{ padding: '0.5rem', color: 'var(--accent-error)' }}
                         title="Delete"
                       >
                         <Trash2 size={16} />
@@ -343,6 +491,49 @@ const EmployeeList: React.FC = () => {
             </tbody>
           </table>
         </div>
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'center', 
+            padding: '1.5rem 2rem',
+            borderTop: '1px solid var(--border-light)'
+          }}>
+            <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+              Showing {startIndex + 1} to {Math.min(startIndex + itemsPerPage, sortedEmployees.length)} of {sortedEmployees.length} employees
+            </div>
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <button
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className="btn btn-secondary"
+                style={{ padding: '0.5rem 1rem' }}
+              >
+                Previous
+              </button>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={`btn ${currentPage === page ? 'btn-primary' : 'btn-secondary'}`}
+                  style={{ padding: '0.5rem 1rem' }}
+                >
+                  {page}
+                </button>
+              ))}
+              <button
+                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className="btn btn-secondary"
+                style={{ padding: '0.5rem 1rem' }}
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Employee Details Modal */}
@@ -573,15 +764,6 @@ const EmployeeList: React.FC = () => {
         </div>
       )}
 
-      {/* Database Information */}
-      <div className="database-info">
-        <h3>Database Features Demonstrated</h3>
-        <p>• <strong>Complex JOINs:</strong> Employees with departments, positions, and manager relationships</p>
-        <p>• <strong>Data Filtering:</strong> Real-time search across multiple fields</p>
-        <p>• <strong>Foreign Key Relationships:</strong> Proper data integrity with referential constraints</p>
-        <p>• <strong>Indexed Queries:</strong> Fast search performance with optimized database indexes</p>
-        <p>• <strong>Data Validation:</strong> Consistent data types and constraints</p>
-      </div>
     </>
   );
 };
