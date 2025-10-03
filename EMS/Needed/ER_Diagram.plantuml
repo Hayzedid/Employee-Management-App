@@ -1,0 +1,191 @@
+@startuml Employee_Management_System_ER
+!define ENTITY(name,desc) entity name as "desc"
+!define ATTRIBUTE(name) name
+!define PK(name) <u>name</u>
+!define FK(name) <i>name</i>
+
+title Employee Management System - Entity Relationship Diagram
+
+ENTITY(users, "USERS") {
+  PK(user_id) : INTEGER
+  username : VARCHAR(50)
+  email : VARCHAR(100)
+  password_hash : VARCHAR(255)
+  role : USER_ROLE
+  is_active : BOOLEAN
+  last_login : TIMESTAMP
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+ENTITY(employees, "EMPLOYEES") {
+  PK(employee_id) : INTEGER
+  FK(user_id) : INTEGER
+  employee_number : VARCHAR(20)
+  first_name : VARCHAR(50)
+  last_name : VARCHAR(50)
+  hire_date : DATE
+  employment_status : EMPLOYMENT_STATUS_TYPE
+  FK(department_id) : INTEGER
+  FK(position_id) : INTEGER
+  FK(manager_id) : INTEGER
+  salary : DECIMAL(12,2)
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+ENTITY(departments, "DEPARTMENTS") {
+  PK(department_id) : INTEGER
+  department_name : VARCHAR(100)
+  department_code : VARCHAR(10)
+  FK(parent_dept_id) : INTEGER
+  FK(manager_id) : INTEGER
+  budget : DECIMAL(15,2)
+  location : VARCHAR(200)
+  is_active : BOOLEAN
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+ENTITY(positions, "POSITIONS") {
+  PK(position_id) : INTEGER
+  position_title : VARCHAR(100)
+  position_code : VARCHAR(20)
+  FK(department_id) : INTEGER
+  job_description : TEXT
+  min_salary : DECIMAL(12,2)
+  max_salary : DECIMAL(12,2)
+  is_active : BOOLEAN
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+ENTITY(attendance_records, "ATTENDANCE_RECORDS") {
+  PK(attendance_id) : INTEGER
+  FK(employee_id) : INTEGER
+  attendance_date : DATE
+  check_in_time : TIME
+  check_out_time : TIME
+  total_hours : DECIMAL(4,2)
+  overtime_hours : DECIMAL(4,2)
+  status : ATTENDANCE_STATUS_TYPE
+  notes : TEXT
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+ENTITY(time_off_requests, "TIME_OFF_REQUESTS") {
+  PK(request_id) : INTEGER
+  FK(employee_id) : INTEGER
+  request_type : TIMEOFF_TYPE
+  start_date : DATE
+  end_date : DATE
+  total_days : INTEGER
+  reason : TEXT
+  status : REQUEST_STATUS_TYPE
+  FK(requested_by) : INTEGER
+  FK(approved_by) : INTEGER
+  approval_date : TIMESTAMP
+  rejection_reason : TEXT
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+ENTITY(performance_reviews, "PERFORMANCE_REVIEWS") {
+  PK(review_id) : INTEGER
+  FK(employee_id) : INTEGER
+  FK(reviewer_id) : INTEGER
+  review_period_start : DATE
+  review_period_end : DATE
+  overall_rating : INTEGER
+  goals_achieved : INTEGER
+  goals_total : INTEGER
+  strengths : TEXT
+  areas_for_improvement : TEXT
+  development_plan : TEXT
+  next_review_date : DATE
+  status : VARCHAR(20)
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+ENTITY(salary_history, "SALARY_HISTORY") {
+  PK(salary_id) : INTEGER
+  FK(employee_id) : INTEGER
+  salary_amount : DECIMAL(12,2)
+  effective_date : DATE
+  end_date : DATE
+  salary_type : VARCHAR(20)
+  reason : TEXT
+  FK(approved_by) : INTEGER
+  created_at : TIMESTAMP
+}
+
+ENTITY(emergency_contacts, "EMERGENCY_CONTACTS") {
+  PK(contact_id) : INTEGER
+  FK(employee_id) : INTEGER
+  contact_name : VARCHAR(100)
+  relationship : VARCHAR(50)
+  phone : VARCHAR(20)
+  email : VARCHAR(100)
+  address : TEXT
+  is_primary : BOOLEAN
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+ENTITY(documents, "DOCUMENTS") {
+  PK(document_id) : INTEGER
+  FK(employee_id) : INTEGER
+  document_name : VARCHAR(255)
+  document_type : VARCHAR(50)
+  file_path : VARCHAR(500)
+  file_size : INTEGER
+  mime_type : VARCHAR(100)
+  FK(uploaded_by) : INTEGER
+  is_confidential : BOOLEAN
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+ENTITY(notifications, "NOTIFICATIONS") {
+  PK(notification_id) : INTEGER
+  FK(user_id) : INTEGER
+  title : VARCHAR(200)
+  message : TEXT
+  notification_type : VARCHAR(50)
+  is_read : BOOLEAN
+  action_url : VARCHAR(500)
+  created_at : TIMESTAMP
+}
+
+ENTITY(audit_logs, "AUDIT_LOGS") {
+  PK(log_id) : INTEGER
+  FK(user_id) : INTEGER
+  action : VARCHAR(50)
+  table_name : VARCHAR(50)
+  record_id : INTEGER
+  old_values : JSONB
+  new_values : JSONB
+  ip_address : INET
+  user_agent : TEXT
+  created_at : TIMESTAMP
+}
+
+' Relationships
+users ||--|| employees : "has profile"
+departments ||--o{ employees : "contains"
+positions ||--o{ employees : "assigned to"
+employees ||--o{ employees : "manages"
+employees ||--o{ attendance_records : "has records"
+employees ||--o{ time_off_requests : "submits"
+employees ||--o{ performance_reviews : "receives"
+employees ||--o{ salary_history : "has history"
+employees ||--o{ emergency_contacts : "has contacts"
+employees ||--o{ documents : "owns"
+users ||--o{ notifications : "receives"
+users ||--o{ audit_logs : "creates"
+departments ||--o{ positions : "has positions"
+departments ||--o{ departments : "parent of"
+
+@enduml

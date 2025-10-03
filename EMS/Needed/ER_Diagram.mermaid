@@ -1,0 +1,181 @@
+erDiagram
+    %% Employee Management System ER Diagram
+    %% Generated from text specification
+    
+    USERS {
+        int user_id PK
+        string username
+        string email
+        string password_hash
+        enum role
+        boolean is_active
+        datetime last_login
+        datetime created_at
+        datetime updated_at
+    }
+    
+    EMPLOYEES {
+        int employee_id PK
+        int user_id FK
+        string employee_number
+        string first_name
+        string last_name
+        date hire_date
+        enum employment_status
+        int department_id FK
+        int position_id FK
+        int manager_id FK
+        decimal salary
+        datetime created_at
+        datetime updated_at
+    }
+    
+    DEPARTMENTS {
+        int department_id PK
+        string department_name
+        string department_code
+        int parent_dept_id FK
+        int manager_id FK
+        decimal budget
+        string location
+        boolean is_active
+    }
+    
+    POSITIONS {
+        int position_id PK
+        string position_title
+        string position_code
+        int department_id FK
+        text job_description
+        decimal min_salary
+        decimal max_salary
+        boolean is_active
+    }
+    
+    ATTENDANCE_RECORDS {
+        int attendance_id PK
+        int employee_id FK
+        date attendance_date
+        time check_in_time
+        time check_out_time
+        decimal total_hours
+        decimal overtime_hours
+        enum status
+        text notes
+        datetime created_at
+        datetime updated_at
+    }
+    
+    TIME_OFF_REQUESTS {
+        int request_id PK
+        int employee_id FK
+        enum request_type
+        date start_date
+        date end_date
+        int total_days
+        text reason
+        enum status
+        int requested_by FK
+        int approved_by FK
+        datetime approval_date
+        text rejection_reason
+        datetime created_at
+        datetime updated_at
+    }
+    
+    PERFORMANCE_REVIEWS {
+        int review_id PK
+        int employee_id FK
+        int reviewer_id FK
+        date review_period_start
+        date review_period_end
+        int overall_rating
+        int goals_achieved
+        int goals_total
+        text strengths
+        text areas_for_improvement
+        text development_plan
+        date next_review_date
+        enum status
+        datetime created_at
+        datetime updated_at
+    }
+    
+    SALARY_HISTORY {
+        int salary_id PK
+        int employee_id FK
+        decimal salary_amount
+        date effective_date
+        date end_date
+        enum salary_type
+        text reason
+        int approved_by FK
+        datetime created_at
+    }
+    
+    EMERGENCY_CONTACTS {
+        int contact_id PK
+        int employee_id FK
+        string contact_name
+        string relationship
+        string phone
+        string email
+        text address
+        boolean is_primary
+        datetime created_at
+        datetime updated_at
+    }
+    
+    DOCUMENTS {
+        int document_id PK
+        int employee_id FK
+        string document_name
+        string document_type
+        string file_path
+        int file_size
+        string mime_type
+        int uploaded_by FK
+        boolean is_confidential
+        datetime created_at
+        datetime updated_at
+    }
+    
+    NOTIFICATIONS {
+        int notification_id PK
+        int user_id FK
+        string title
+        text message
+        enum notification_type
+        boolean is_read
+        string action_url
+        datetime created_at
+    }
+    
+    AUDIT_LOGS {
+        int log_id PK
+        int user_id FK
+        string action
+        string table_name
+        int record_id
+        json old_values
+        json new_values
+        string ip_address
+        string user_agent
+        datetime created_at
+    }
+    
+    %% Relationships
+    USERS ||--|| EMPLOYEES : "has profile"
+    DEPARTMENTS ||--o{ EMPLOYEES : "contains"
+    POSITIONS ||--o{ EMPLOYEES : "assigned to"
+    EMPLOYEES ||--o{ EMPLOYEES : "manages"
+    EMPLOYEES ||--o{ ATTENDANCE_RECORDS : "has records"
+    EMPLOYEES ||--o{ TIME_OFF_REQUESTS : "submits"
+    EMPLOYEES ||--o{ PERFORMANCE_REVIEWS : "receives"
+    EMPLOYEES ||--o{ SALARY_HISTORY : "has history"
+    EMPLOYEES ||--o{ EMERGENCY_CONTACTS : "has contacts"
+    EMPLOYEES ||--o{ DOCUMENTS : "owns"
+    USERS ||--o{ NOTIFICATIONS : "receives"
+    USERS ||--o{ AUDIT_LOGS : "creates"
+    DEPARTMENTS ||--o{ POSITIONS : "has positions"
+    DEPARTMENTS ||--o{ DEPARTMENTS : "parent of"
